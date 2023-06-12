@@ -1,0 +1,67 @@
+<script type="text/javascript">
+	var response_details = [
+		~[tlist_sql;
+		SELECT U_FB_FORM_RESPONSE.ID
+			, U_FB_FORM_RESPONSE_DETAIL.RESPONSE_VALUE
+		FROM U_FB_FORM
+			INNER JOIN U_FB_FORM_ELEMENT ON U_FB_FORM_ELEMENT.U_FB_FORM_ID = U_FB_FORM.id
+				AND LOWER( U_FB_FORM_ELEMENT.CSS_CLASS ) LIKE '%response-label%'
+			
+			INNER JOIN U_FB_FORM_RESPONSE ON U_FB_FORM_RESPONSE.U_FB_FORM_ID = U_FB_FORM.ID
+			
+			INNER JOIN U_FB_FORM_RESPONSE_ELEMENT ON U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_ELEMENT_ID = U_FB_FORM_ELEMENT.id
+				AND U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+
+			INNER JOIN U_FB_FORM_RESPONSE_DETAIL ON U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+				AND U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ELEMENT_ID = U_FB_FORM_RESPONSE_ELEMENT.ID
+			
+			~[if#portal.~[directory]=admin]
+				INNER JOIN teachers ON teachers.users_dcid = U_FB_FORM_RESPONSE.USER_ID
+					AND '005' || TO_CHAR( teachers.dcid ) = '~[x:teacherfrn]'
+			[/if#portal]
+
+		WHERE U_FB_FORM.id = ~(gpv.formid;sqlText)]{id: ~(id), label: '~(response_value;json)' },[/tlist_sql]
+	{id: 0, label: '' }];
+	// Fix syntax highlighting
+
+	function appendResponseLabels() {
+		response_details.forEach( function(e) {
+			
+			if ( e.label ) {
+				var o = '[value=' + e.id + ']';
+				$j( o ).text( e.label + ' - ' + $j( o ).text() );
+			}
+		});
+	}
+
+	function angularYUSoSlo() {
+		setTimeout( appendResponseLabels, 500 );
+	}
+
+
+	var hammer_counter = 50;
+	function hammerAngular() {
+		if ( $j( '[ng-if="responseNotifications.total"]' ).length == 0 ) {
+			if ( hammer_counter > 0 ) {
+				hammer_counter -= 1;
+				console.log( hammer_counter );
+				setTimeout( function() { hammerAngular(); }, 100 );
+			} else {
+				console.log( "That's it...  I QUIT!" );
+				console.log( '(╯°□°)╯︵ ┻━┻' );
+			}
+
+		} else {
+			$j( function() {
+				console.log( 'adding clicky thing ' );
+				$j( 'div.response-notifications' ).click( angularYUSoSlo );
+			})
+		}
+	}
+
+
+	$j( document ).ready( function() {
+		hammerAngular();
+	});
+
+</script>

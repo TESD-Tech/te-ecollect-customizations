@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>~(schoolname) Student Discipline Form Submissions</title>
+	
+	<!-- required scripts -->
+	~[wc:commonscripts] 
+	<!-- Required style sheets: screen.css, and print.css --> 
+	<link href="/images/css/screen.css" rel="stylesheet" media="screen">
+	<link href="/images/css/print.css" rel="stylesheet" media="print">
+
+	<script>
+		require(['angular', 'attendancetoday'], function (angular) {
+		  angular.bootstrap(document, ['myModule']);
+		});
+	</script>   
+	
+~[wc:pscb_init]
+
+</head>
+<body> 
+~[wc:teachers_header_css]~[wc:teachers_navigation_css]
+~[SetPostValue:tabname=discipline_form]
+~[wc:teachers_nav_css]
+
+<!-- Start of shaded content table -->
+	
+<h1>~(schoolname) Student Discipline Form Submissions</h1>
+
+	<!-- start of content area -->
+  <div class="box-round">
+  <table border="0" cellspacing="0" cellpadding="4" align="center" class="tablesorter grid" id="results">
+    <thead>
+      <tr class="headerRow">
+        <th width = "" class="bold" style="text-align: left;" >Date</th>
+        <th width = "" class="bold" style="text-align: left;" >Student</th>
+        <th width = "" class="bold" style="text-align: left;" >Teacher Notes</th>
+        <th width = "" class="bold" style="text-align: left;" >Admin Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      ~[tlist_sql;
+      WITH discipline_label AS (
+	SELECT U_FB_FORM_RESPONSE.ID
+		, U_FB_FORM_RESPONSE_DETAIL.RESPONSE_VALUE
+	FROM U_FB_FORM_ELEMENT
+		INNER JOIN U_FB_FORM_RESPONSE ON U_FB_FORM_RESPONSE.U_FB_FORM_ID = U_FB_FORM_ELEMENT.U_FB_FORM_ID
+		INNER JOIN U_FB_FORM_RESPONSE_ELEMENT ON U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_ELEMENT_ID = U_FB_FORM_ELEMENT.id
+			AND U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+
+		INNER JOIN U_FB_FORM_RESPONSE_DETAIL ON U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+			AND U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ELEMENT_ID = U_FB_FORM_RESPONSE_ELEMENT.ID
+	WHERE LOWER( U_FB_FORM_ELEMENT.CSS_CLASS ) LIKE '%response-label%'
+),
+discipline_grade AS (
+	SELECT U_FB_FORM_RESPONSE.ID
+		, U_FB_FORM_RESPONSE_DETAIL.RESPONSE_VALUE
+	FROM U_FB_FORM_ELEMENT
+		INNER JOIN U_FB_FORM_RESPONSE ON U_FB_FORM_RESPONSE.U_FB_FORM_ID = U_FB_FORM_ELEMENT.U_FB_FORM_ID
+		INNER JOIN U_FB_FORM_RESPONSE_ELEMENT ON U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_ELEMENT_ID = U_FB_FORM_ELEMENT.id
+			AND U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+
+		INNER JOIN U_FB_FORM_RESPONSE_DETAIL ON U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+			AND U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ELEMENT_ID = U_FB_FORM_RESPONSE_ELEMENT.ID
+	WHERE LOWER( U_FB_FORM_ELEMENT.CSS_CLASS ) LIKE '%discipline-grade%'
+),
+discipline_notes AS (
+	SELECT U_FB_FORM_RESPONSE.ID
+		, U_FB_FORM_RESPONSE_DETAIL.RESPONSE_VALUE
+	FROM U_FB_FORM_ELEMENT
+		INNER JOIN U_FB_FORM_RESPONSE ON U_FB_FORM_RESPONSE.U_FB_FORM_ID = U_FB_FORM_ELEMENT.U_FB_FORM_ID
+		INNER JOIN U_FB_FORM_RESPONSE_ELEMENT ON U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_ELEMENT_ID = U_FB_FORM_ELEMENT.id
+			AND U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+
+		INNER JOIN U_FB_FORM_RESPONSE_DETAIL ON U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+			AND U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ELEMENT_ID = U_FB_FORM_RESPONSE_ELEMENT.ID
+	WHERE LOWER( U_FB_FORM_ELEMENT.CSS_CLASS ) LIKE '%discipline-notes%'
+),
+discipline_admin AS (
+	SELECT U_FB_FORM_RESPONSE.ID
+		, U_FB_FORM_RESPONSE_DETAIL.RESPONSE_VALUE
+	FROM U_FB_FORM_ELEMENT
+		INNER JOIN U_FB_FORM_RESPONSE ON U_FB_FORM_RESPONSE.U_FB_FORM_ID = U_FB_FORM_ELEMENT.U_FB_FORM_ID
+		INNER JOIN U_FB_FORM_RESPONSE_ELEMENT ON U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_ELEMENT_ID = U_FB_FORM_ELEMENT.id
+			AND U_FB_FORM_RESPONSE_ELEMENT.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+
+		INNER JOIN U_FB_FORM_RESPONSE_DETAIL ON U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ID = U_FB_FORM_RESPONSE.ID
+			AND U_FB_FORM_RESPONSE_DETAIL.U_FB_FORM_RESPONSE_ELEMENT_ID = U_FB_FORM_RESPONSE_ELEMENT.ID
+	WHERE LOWER( U_FB_FORM_ELEMENT.CSS_CLASS ) LIKE '%discipline-admin%'
+)
+SELECT TO_CHAR( U_FB_FORM_RESPONSE.WHENCREATED, 'MM/DD/YYYY' ) Created
+	, discipline_label.response_value student
+	, discipline_notes.response_value notes
+	, discipline_admin.response_value admin
+
+FROM U_FB_FORM
+	INNER JOIN teachers ON teachers.id = ~[x:userid]
+	INNER JOIN U_FB_FORM_RESPONSE ON U_FB_FORM_RESPONSE.U_FB_FORM_ID = U_FB_FORM.ID
+		AND U_FB_FORM_RESPONSE.user_id = teachers.users_dcid
+	INNER JOIN discipline_label ON discipline_label.id = U_FB_FORM_RESPONSE.id
+	LEFT JOIN discipline_grade ON discipline_grade.id = U_FB_FORM_RESPONSE.id
+	LEFT JOIN discipline_notes ON discipline_notes.id = U_FB_FORM_RESPONSE.id
+	LEFT JOIN discipline_admin ON discipline_admin.id = U_FB_FORM_RESPONSE.id
+WHERE U_FB_FORM.FORM_TITLE = 'Student Discipline Form'
+ORDER BY U_FB_FORM_RESPONSE.WHENCREATED DESC
+      ]
+        <tr>
+          <td>~(created)</td>
+          <td>~(student)</td>
+          <td>~(notes)</td>
+          <td>~(admin)</td>
+        </tr>
+      [/tlist_sql]
+    </tbody>
+  </table>
+  </div>
+<!-- end of content area --> 
+
+	~[wc:teachers_footer_nf_css]
+
+</body> 
+</html>

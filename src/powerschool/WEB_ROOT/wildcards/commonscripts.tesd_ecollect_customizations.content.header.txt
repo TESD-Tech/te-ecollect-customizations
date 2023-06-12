@@ -1,0 +1,11 @@
+~[if#teacherFormbuilder.~[self.page]=teachers/formbuilder/home.html]
+	~[redirect:/teachers/home.html]
+[/if#teacherFormbuilder]
+
+<!-- START /wildcards/commonscripts.tesd_ecollect_customizations.content.header.txt -->
+~[if#dir.~[directory]=teachers]
+<style type="text/css">
+	#navFormBuilder { display: none !important; }
+</style>
+[/if#dir]
+<!-- END /wildcards/commonscripts.tesd_ecollect_customizations.content.header.txt -->

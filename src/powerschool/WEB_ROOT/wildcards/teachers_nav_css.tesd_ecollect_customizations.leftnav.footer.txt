@@ -1,0 +1,47 @@
+<!-- START teachers_nav_css.tesd_ecollect_customizations.leftnav.footer.txt -->
+<script type="text/javascript">
+	var ecollect_missing = [
+		~[tlist_sql;
+			SELECT SUM( CASE WHEN U_FB_FORM_RESPONSE.id IS NULL THEN 1 ELSE 0 END ) missing_forms
+			FROM users
+				INNER JOIN U_FB_FORM ON U_FB_FORM.form_type IN ( 'TC' )
+					AND U_FB_FORM.ID >= 0
+
+					AND TO_CHAR( U_FB_FORM.FORM_CATEGORY ) = 'TESD Staff Development'
+					AND ( 
+						U_FB_FORM.PUBLISH = 'true'
+						OR ( U_FB_FORM.PUBLISH = 'Scheduled' 
+								AND TRIM( CURRENT_DATE ) BETWEEN 
+									TO_DATE( SUBSTR( U_FB_FORM.PUBLISH_OPEN_DATE, 0, 16 ), 'Dy, DD Mon YYYY' )
+									AND
+									TO_DATE( SUBSTR( U_FB_FORM.PUBLISH_CLOSE_DATE, 0, 16 ), 'Dy, DD Mon YYYY' )
+									 
+									
+						)
+					)
+
+				LEFT JOIN U_FB_FORM_RESPONSE ON U_FB_FORM_RESPONSE.U_FB_FORM_ID = U_FB_FORM.id
+					--AND U_FB_FORM_RESPONSE.STUDENT_ID = students.id
+					AND COALESCE( U_FB_FORM_RESPONSE.archived, '0' ) != '1'
+					AND U_FB_FORM_RESPONSE.YEAR_ID = ~(curyearid)
+				WHERE users.dcid = ~[x:users_dcid]
+					;]~(missing_forms)[/tlist_sql]
+
+
+	];
+	///
+
+	$j( function(){
+		$j( '#nav-main' ).find( 'ul' ).eq(0).prepend("<li><a id='teacher-form-anchor' href='/teachers/formbuilder/forms.html'>TESD Forms</a></li>");
+
+
+		if( ecollect_missing.length >= 1 ) {
+			$j( '#teacher-form-anchor' ).attr( 'badge', ecollect_missing.length );
+		}
+
+
+
+	});
+</script>
+
+<!-- END teachers_nav_css.tesd_ecollect_customizations.leftnav.footer.txt -->

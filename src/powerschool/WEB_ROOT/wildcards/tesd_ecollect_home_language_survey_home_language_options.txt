@@ -1,0 +1,17 @@
+[
+~[tlist_sql;
+	SELECT S_PA_LANGUAGE_CODE_S.NCES_CODE value,
+    S_PA_LANGUAGE_CODE_S.DESCRIPTION label
+  FROM S_PA_LANGUAGE_CODE_S
+  WHERE active = 1
+  ORDER BY S_PA_LANGUAGE_CODE_S.description
+]{
+	"value": "~(value;json)",
+	"label": "~(label;json)"
+},
+[/tlist_sql]
+{
+	"value": "",
+	"label": ""
+}
+]

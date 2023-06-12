@@ -1,0 +1,25 @@
+[
+~[tlist_sql;
+	SELECT students.first_name
+		|| CASE WHEN COALESCE( U_DEF_EXT_STUDENTS.NICKNAME, 'None' ) != 'None' THEN ' (' || U_DEF_EXT_STUDENTS.NICKNAME || ') ' ELSE ' ' END
+		|| students.last_name
+		|| ' - Grade ' || CASE WHEN students.grade_level = 0 THEN 'KG' WHEN students.grade_level <= -1 THEN 'PS' ELSE TO_CHAR( students.grade_level ) END
+		|| ' | ' || students.student_number value
+	FROM students
+		LEFT JOIN U_DEF_EXT_STUDENTS ON U_DEF_EXT_STUDENTS.STUDENTSDCID = STUDENTS.DCID
+	WHERE ( 
+			students.enroll_status = 0
+			AND ~(curschoolid) IN ( 0, students.schoolid )
+		)
+	ORDER BY students.first_name
+		, students.last_name
+]{
+	"value": "~(value;json)",
+	"label": "~(value;json)"
+},
+[/tlist_sql]
+{
+	"value": "",
+	"label": ""
+}
+]

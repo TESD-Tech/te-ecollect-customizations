@@ -1,0 +1,6 @@
+<script type="text/javascript">
+	$j( function(){
+		// Default to "Other Forms" && hide nav tabs
+		$j( '#ecollectFormTab' ).parent().remove();
+	});
+</script>

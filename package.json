@@ -1,0 +1,22 @@
+{
+  "name": "te-ecollect-customizations",
+  "version": "23.6.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TESD-Tech/te-ecollect-customizations.git"
+  },
+  "author": "Benjamin Kemp",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/TESD-Tech/te-ecollect-customizations/issues"
+  },
+  "homepage": "https://github.com/TESD-Tech/te-ecollect-customizations#readme",
+  "devDependencies": {
+    "@tesd-tech/ps-package": "github:tesd-tech/ps-package"
+  }
+}

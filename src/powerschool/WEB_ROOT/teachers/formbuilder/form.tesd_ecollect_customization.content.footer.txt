@@ -1,0 +1,4 @@
+~[wc:tesd_ecollect_response_history_details]
+<script>
+  // $j('#fb_content').prepend('<div style="padding-bottom: 1em;"><a href="/teachers/discipline_form_responses.html" class="button">Response Report</a></div>' )
+</script>
