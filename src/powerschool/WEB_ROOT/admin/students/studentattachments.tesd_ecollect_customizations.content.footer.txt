@@ -1,0 +1,14 @@
+<!-- START studentattachments.tesd_ecollect_customizations.content.footer.txt -->
+<script>
+  let is = new is_tools()
+
+  function sortByDate() {
+    setTimeout(() => {
+      $j('#id-hdr-dateofUpload').click().click()
+    }, 2000)
+  }
+
+  is.hammerAngular('.view-metadata', sortByDate)
+
+</script>
+<!-- END studentattachments.tesd_ecollect_customizations.content.footer.txt -->
