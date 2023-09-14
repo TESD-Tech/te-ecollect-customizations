@@ -4,9 +4,12 @@ TESD Specific Ecollect customizations. Sharing for informational purposes. Curre
 
 ## Features
 
-* Provide an auto-complete data set which includes school-wide list of students that is available to all teachers
+* Provide an auto-complete dataset which includes school-wide list of students that is available to all teachers
 * Expand the default "Response History" dropdown to include submitted values labeled with the custom CSS class "response-label"
 * Disable Form Builder on the PS Teacher portal.
+* Provide an auto-complete dataset which uses NCES language code for the value and the description of the language for the label.
+
+Note: The PS Teacher Portal Discipline Form Responses Report will not work without also having other TESD plugins installed. It is included for informational purposes only.
 
 ## Installation
 
