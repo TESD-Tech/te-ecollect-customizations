@@ -1,0 +1,1386 @@
+
+
+<div id="pdeFields" class="hidden">
+	
+	~[SetPostValue:repType=STU]
+
+	<!-- start of content and bounding box -->
+	<div class="box-round">
+
+
+	<table border="0" cellspacing="0" cellpadding="4" width="100%">
+	<tr class="headerRow">
+		<td colspan="2"><span class="bold">*Labels highlighted in blue are links to where the information can be edited.</span></td>
+	</tr>
+	<tr class="~[evenoddrow;reset]">
+	<td><span class="bold" title="[prefs]PA_districtAUN">Field 1. District Code</span></td>
+	<td>~(f.table_info;table=Prefs;field=value;fieldtype=TEXT;fn=value;dothisfor=ALL;query=([prefs]name.eq.PA_districtAUN))</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold">Field 2. Location Code</span><br>If the PIMS Location Code is blank the PowerSchool Location code is extracted.</td>
+	<td><script type="text/javascript">
+		var retLoc="~(f.table_info;table=Schools;fn=value;dothisfor=ALL;field=PA_Location_Code;fieldtype=TEXT;query=([Schools]School_Number.eq.~([Students]SchoolID)))";
+		if(retLoc!="")
+		{
+	  		document.write(retLoc);
+		}
+		else
+		{
+	  		document.write("~([Students]SchoolID;fixlen=4,0,3)");
+		}
+	</script></td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold">Field 3. School Year Date</span></td>
+	<td>~(f.table_info;table=terms;dothisfor=all;fn=max;field=LastDay;fieldtype=DATE;format=YYYY;query=([terms]yearid.eq.~(v.curyearid)))-06-30</td>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]state_studentnumber">Field 4. <a href="/admin/students/state/usa_pa/StatePA-SecureID.html?frn=~(studentfrn)">Student ID</a></span><br>PAsecureID assigned to the Student.</td>
+	<td>~([Students]state_studentnumber)</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]SSN">Social Security Number</span><br>The data for this field is collected on the Student Demographics page [Students]SSN.</td>
+	<td>
+	<script type="text/javascript">
+		var ssn="~([Students]SSN;replace=-,)";
+		if(ssn.length>1)
+		{	
+			document.write("****");
+		}
+		else
+		{
+	  		document.write("");
+		}
+	</script>
+	</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[S_PA_STU_X]State_Grade_Code">Field 10. Current Grade Level</span></td>
+	<td>~[if.~[decode;~([Students]Grade_Level);1;1;2;1;3;1;4;1;5;1;6;1;7;1;8;1;9;1;10;1;11;1;12;1;0]=1]~(decode;~([Students]PA_GradeCode);US;SUG;ASP;ASP;PSS;PSS;013;013;014;014;015;015;016;016;017;017;ADT;ADT;~([Students]Grade_Level;format=000))[/if]~[if.~([Students]Grade_Level)<1]~(decode;~([Students]PA_GradeCode);K4A;K4A;K4P;K4P;K4F;K4F;K5A;K5A;K5P;K5P;K5F;K5F;PKA;PKA;PKP;PKP;PKF;PKF;UE;EUG; )[/if]</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]Home_Room">Field 13. <a href="/admin/students/modifydata.html?frn=~(studentfrn)">Home Room</a></span><br>Optional for 2018-2019 submission.</td>
+	<td><script type="text/javascript">
+	var hr="~([Students]Home_Room)";
+	document.write(hr.substring(0,20));
+	</script></td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]DOB">Field 14. <a href="/admin/students/generaldemographics.html?frn=~(studentfrn)">Date of Birth</a></span><br></td>
+	<td>~([Students]DOB;dateformat=YYYY-MM-DD)</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]Gender">Field 15. <a href="/admin/students/generaldemographics.html?frn=~(studentfrn)">Gender</a></span></td>
+	<td>~([Students]Gender)</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]Mailing_Street">Field 16. <a href="/admin/students/generaldemographics.html?frn=~(studentfrn)">Address 1</a></span></td>
+	<td><script type="text/javascript">
+	var ad="~([Students]Mailing_Street)";
+	document.write(ad.substring(0,40));
+	</script></td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[S_PA_STU_X]Address_2">Field 17. Address 2</span></td>
+	<td><input type="text" name="[Students]PA_Address_2" value="" size="40" maxlength="40"></td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]Mailing_City">Field 18. <a href="/admin/students/generaldemographics.html?frn=~(studentfrn)">City</a></span></td>
+	<td>~([Students]Mailing_City)</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]Mailing_State">Field 19. <a href="/admin/students/generaldemographics.html?frn=~(studentfrn)">State</a></span><br>Official US Postal Service abbreviation.</td>
+	<td>~([Students]Mailing_State)</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]Mailing_Zip">Field 20. <a href="/admin/students/generaldemographics.html?frn=~(studentfrn)">Zip</a></span><br>Official US Postal Service code.</td>
+	<td>~([Students]Mailing_Zip)</td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold" title="[Students]fedethnicity">Field 27. <a href="/admin/students/generaldemographics.html?frn=~(studentfrn)">PA Race or Ethnicity Code</a></span></td>
+	<td><script type="text/javascript">
+	var ethnic="~([Students]fedethnicity)";
+	switch(ethnic)
+	{
+		case ("1"):
+			document.write("4 Hispanic (any race(s))");
+		break;
+		default:
+			// count the number of boxes checked
+			var raceCount=0;
+			var raceAmericanIndian="";
+			var raceAsian="";
+			var raceBlack="";
+			var raceWhite="";
+			var raceHawaiian="";
+			var raceStr="";
+			var raceAmericanIndian = ~(f.table_info;table=StudentRace;fn=count;condfield1=RaceCD;condfieldtype1=TEXT;comparator1=.eq.;condval1=I;*StudentID=~([Students]ID));
+			var raceAsian = ~(f.table_info;table=StudentRace;fn=count;condfield1=RaceCD;condfieldtype1=TEXT;comparator1=.eq.;condval1=A;*StudentID=~([Students]ID));
+			var raceBlack = ~(f.table_info;table=StudentRace;fn=count;condfield1=RaceCD;condfieldtype1=TEXT;comparator1=.eq.;condval1=B;*StudentID=~([Students]ID));
+			var raceWhite = ~(f.table_info;table=StudentRace;fn=count;condfield1=RaceCD;condfieldtype1=TEXT;comparator1=.eq.;condval1=W;*StudentID=~([Students]ID));
+			var raceHawaiian = ~(f.table_info;table=StudentRace;fn=count;condfield1=RaceCD;condfieldtype1=TEXT;comparator1=.eq.;condval1=P;*StudentID=~([Students]ID));
+			if(raceAsian == 1){
+				raceCount++;
+				raceStr="9 Asian (not Hispanic)"
+			}
+			if(raceBlack == 1){
+				raceCount++;
+				raceStr="3 Black or African American (not Hispanic)";
+			}
+			if(raceAmericanIndian == 1){
+				raceCount++;
+				raceStr="1 American Indian/Alaskan Native (not Hispanic)";
+			}
+			if(raceHawaiian == 1){
+				raceCount++;
+				raceStr="10 Native Hawaiian or other Pacific Islander (not Hispanic)";
+			}
+			if(raceWhite == 1){
+				raceCount++;
+				raceStr="5 White (not Hispanic)";
+			}
+			if(raceCount > 1){
+				raceStr="6 Multi-Racial (not Hispanic)"
+			}
+			document.write(raceStr);
+		break;
+	}
+	//Validation for Program Services Code (Title I Part A)
+	function specPrograms(){
+			var currentdt = "";
+			var countOfspecProgsAtdist = "";
+			var countOfEnrolledSpecProg = "";
+			var spExitDate="";	
+
+			~[tlist_sql;select to_char(sysdate,'yyyy/mm/dd') currentdt  from  dual]
+				currentdt = '~(currentdt;t)';	
+			[/tlist_sql]
+					
+			~[tlist_sql;
+						select count(*) countOfspecProgsAtdist from gen left outer join s_pa_gen_x genX on genX.gendcid = gen.dcid where genX.Pims_Programs_Code = '015' and gen.cat ='specprog' and NAME like '%Title%']
+						
+				countOfspecProgsAtdist = '~(countOfspecProgsAtdist;t)';	
+				
+			[/tlist_sql]			
+						
+					
+			~[tlist_sql;
+					select count(*) countOfEnrolledSpecProg from SPENROLLMENTS spen,students s, gen g left outer join s_pa_gen_x genX on genX.gendcid = g.dcid where 
+					spen.STUDENTID = s.ID and (spen.ENTER_DATE between s.ENTRYDATE and s.EXITDATE) and  s.ID = '~([Students]ID)'
+					and g.id=spen.PROGRAMID 
+					and g.cat = 'specprog' 
+					and g.NAME like '%Title%' and genX.Pims_Programs_Code = '015']
+					
+					countOfEnrolledSpecProg = '~(countOfEnrolledSpecProg;t)';	
+					
+			[/tlist_sql]	
+
+					
+			~[tlist_sql;
+				select exit_date spExitDate from
+				(select 
+				to_char(spen.ENTER_DATE,'yyyy/mm/dd') ENTER_DATE,
+				to_char(spen.EXIT_DATE,'yyyy/mm/dd') EXIT_DATE
+				from SPENROLLMENTS spen,students s, gen g left outer join s_pa_gen_x genX on genX.gendcid = g.dcid where 
+				spen.STUDENTID = s.ID and (spen.ENTER_DATE between s.ENTRYDATE and s.EXITDATE)  and  s.ID = '~([Students]ID)'
+				and g.id=spen.PROGRAMID 
+				and g.cat = 'specprog' and g.NAME like '%Title%' and genX.Pims_Programs_Code = '015'
+				order by spen.ENTER_DATE DESC)where rownum=1;]
+				
+				spExitDate = '~(spExitDate;t)';	
+				
+			[/tlist_sql]
+
+
+
+			var title1_tf = $j( '#title1_tf' ).val();
+
+			if(countOfspecProgsAtdist > 0)
+			{
+				if(countOfEnrolledSpecProg > 0)
+				{
+
+					if(title1_tf == '0')
+					{
+						if((spExitDate > currentdt) || spExitDate == '1900/01/01')
+						{
+							alert("Student is enrolled in Title I Special Program. Program Services Code (Title 1 Part A) must be set to Y.");
+							$j('#title1_tf').focus();
+							closeLoading();
+							return true;
+						}
+
+					}
+
+					if(title1_tf == '1')
+					{
+						if(spExitDate <= currentdt && spExitDate != '1900/01/01')
+						{
+							alert("Student is not enrolled in Title I Special Program. Program Services Code (Title 1 Part A) must be set to N.");
+							$j('#title1_tf').focus();
+							closeLoading();
+							return true;
+						}
+					}
+
+				}
+				else if(title1_tf == '1')
+				{
+					alert("Student is not enrolled in Title I Special Program. Program Services Code (Title 1 Part A) must be set to N.");
+					$j('#title1_tf').focus();
+					closeLoading();
+					return true;
+				}
+			}
+						
+			return true;
+				
+	}
+	</script></td>
+	</tr>
+	<tr class="~[evenoddrow]">
+	<td><span class="bold">Field 33. Economic Status</span><br>Indicates participation in the Food Program.</td>
+	<td>*This value will be extracted when the report is run.</td>
+	</tr>
+	<!-- Start insert misc. -->
+	~[x:insertfile;/admin/students/state/usa_pa/statePA-StudentFieldsBreakup.html]
+	<!-- End insert misc. -->
+
+</table>
+
+
+
+
+<script type="text/javascript">
+
+	function updateNCES() {
+		$j( '[data-key="students.s_pa_stu_x.home_language_code"]' ).eq(0).val( $j( '#ncesCode' ).val() ).change();
+	}
+
+	function getUrlVars() {
+	    var vars = {};
+	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+	        vars[key] = value;
+	    });
+	    return vars;
+	}
+
+	var vars = getUrlVars();
+
+
+
+	var counter = 50;
+	function hammerAngular() {
+
+		if ( 1 == 0 ) {
+
+		} else {
+			movePDEfields()
+
+
+	
+	function buildEnrollmentDistrictList(selectList)
+	{
+		selectList.empty();
+		selectList.append('<option value=""></option>');
+		
+		var distvalue = '123460302';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123460302" + "\">" + "(123460302) Abington SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123460302" + "\">" + "(123460302) Abington SD" + "</option>");
+		}
+		
+		var distvalue = '300150600';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300150600" + "\">" + "(300150600) APS Camphill Special School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300150600" + "\">" + "(300150600) APS Camphill Special School" + "</option>");
+		}
+		
+		var distvalue = '300231780';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300231780" + "\">" + "(300231780) APS Davidson School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300231780" + "\">" + "(300231780) APS Davidson School" + "</option>");
+		}
+		
+		var distvalue = '300151900';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300151900" + "\">" + "(300151900) APS Devereux Day School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300151900" + "\">" + "(300151900) APS Devereux Day School" + "</option>");
+		}
+		
+		var distvalue = '300151904';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300151904" + "\">" + "(300151904) APS Devereux Leo Kanner Lrng Ctr" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300151904" + "\">" + "(300151904) APS Devereux Leo Kanner Lrng Ctr" + "</option>");
+		}
+		
+		var distvalue = '300151902';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300151902" + "\">" + "(300151902) APS Devereux Mapleton" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300151902" + "\">" + "(300151902) APS Devereux Mapleton" + "</option>");
+		}
+		
+		var distvalue = '300232650';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300232650" + "\">" + "(300232650) APS George Crothers Memorial School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300232650" + "\">" + "(300232650) APS George Crothers Memorial School" + "</option>");
+		}
+		
+		var distvalue = '300514200';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300514200" + "\">" + "(300514200) APS HMS School for Children with Cerebral Palsy" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300514200" + "\">" + "(300514200) APS HMS School for Children with Cerebral Palsy" + "</option>");
+		}
+		
+		var distvalue = '322090074';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "322090074" + "\">" + "(322090074) APS Lifeworks Academy" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "322090074" + "\">" + "(322090074) APS Lifeworks Academy" + "</option>");
+		}
+		
+		var distvalue = '300464050';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300464050" + "\">" + "(300464050) APS Martin Luther School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300464050" + "\">" + "(300464050) APS Martin Luther School" + "</option>");
+		}
+		
+		var distvalue = '300234800';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300234800" + "\">" + "(300234800) APS Melmark School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300234800" + "\">" + "(300234800) APS Melmark School" + "</option>");
+		}
+		
+		var distvalue = '300516590';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300516590" + "\">" + "(300516590) APS Overbrook School for the Blind" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300516590" + "\">" + "(300516590) APS Overbrook School for the Blind" + "</option>");
+		}
+		
+		var distvalue = '300466670';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300466670" + "\">" + "(300466670) APS Pathway School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300466670" + "\">" + "(300466670) APS Pathway School" + "</option>");
+		}
+		
+		var distvalue = '300157200';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300157200" + "\">" + "(300157200) APS Royer-Greaves School for the Blind" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300157200" + "\">" + "(300157200) APS Royer-Greaves School for the Blind" + "</option>");
+		}
+		
+		var distvalue = '300468000';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300468000" + "\">" + "(300468000) APS Timothy School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300468000" + "\">" + "(300468000) APS Timothy School" + "</option>");
+		}
+		
+		var distvalue = '300468300';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300468300" + "\">" + "(300468300) APS Vanguard School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300468300" + "\">" + "(300468300) APS Vanguard School" + "</option>");
+		}
+		
+		var distvalue = '300098500';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300098500" + "\">" + "(300098500) APS Woods Services" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300098500" + "\">" + "(300098500) APS Woods Services" + "</option>");
+		}
+		
+		var distvalue = '124150503';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124150503" + "\">" + "(124150503) Avon Grove SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124150503" + "\">" + "(124150503) Avon Grove SD" + "</option>");
+		}
+		
+		var distvalue = '114000000';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "114000000" + "\">" + "(114000000) Berks County IU 14" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "114000000" + "\">" + "(114000000) Berks County IU 14" + "</option>");
+		}
+		
+		var distvalue = '129540803';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "129540803" + "\">" + "(129540803) Blue Mountain" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "129540803" + "\">" + "(129540803) Blue Mountain" + "</option>");
+		}
+		
+		var distvalue = '122000000';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "122000000" + "\">" + "(122000000) Bucks County IU 22" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "122000000" + "\">" + "(122000000) Bucks County IU 22" + "</option>");
+		}
+		
+		var distvalue = '300461460';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "300461460" + "\">" + "(300461460) Carson Valley RTF" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "300461460" + "\">" + "(300461460) Carson Valley RTF" + "</option>");
+		}
+		
+		var distvalue = '122092102';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "122092102" + "\">" + "(122092102) Central Bucks SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "122092102" + "\">" + "(122092102) Central Bucks SD" + "</option>");
+		}
+		
+		var distvalue = '123461302';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123461302" + "\">" + "(123461302) Cheltenham Township SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123461302" + "\">" + "(123461302) Cheltenham Township SD" + "</option>");
+		}
+		
+		var distvalue = '124000000';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124000000" + "\">" + "(124000000) Chester County IU 24" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124000000" + "\">" + "(124000000) Chester County IU 24" + "</option>");
+		}
+		
+		var distvalue = '124151902';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124151902" + "\">" + "(124151902) Coatesville Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124151902" + "\">" + "(124151902) Coatesville Area SD" + "</option>");
+		}
+		
+		var distvalue = '123461602';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123461602" + "\">" + "(123461602) Colonial SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123461602" + "\">" + "(123461602) Colonial SD" + "</option>");
+		}
+		
+		var distvalue = '114061503';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "114061503" + "\">" + "(114061503) Daniel Boone Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "114061503" + "\">" + "(114061503) Daniel Boone Area SD" + "</option>");
+		}
+		
+		var distvalue = '124152003';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124152003" + "\">" + "(124152003) Downingtown Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124152003" + "\">" + "(124152003) Downingtown Area SD" + "</option>");
+		}
+		
+		var distvalue = '105252602';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "105252602" + "\">" + "(105252602) Erie City SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "105252602" + "\">" + "(105252602) Erie City SD" + "</option>");
+		}
+		
+		var distvalue = '106612203';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "106612203" + "\">" + "(106612203) Franklin Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "106612203" + "\">" + "(106612203) Franklin Area SD" + "</option>");
+		}
+		
+		var distvalue = '124153503';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124153503" + "\">" + "(124153503) Great Valley SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124153503" + "\">" + "(124153503) Great Valley SD" + "</option>");
+		}
+		
+		var distvalue = '104432903';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "104432903" + "\">" + "(104432903) Grove City Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "104432903" + "\">" + "(104432903) Grove City Area SD" + "</option>");
+		}
+		
+		var distvalue = '125234502';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "125234502" + "\">" + "(125234502) Haverford SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "125234502" + "\">" + "(125234502) Haverford SD" + "</option>");
+		}
+		
+		var distvalue = '124154003';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124154003" + "\">" + "(124154003) Kennett Consolidated SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124154003" + "\">" + "(124154003) Kennett Consolidated SD" + "</option>");
+		}
+		
+		var distvalue = '123464502';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123464502" + "\">" + "(123464502) Lower Merion SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123464502" + "\">" + "(123464502) Lower Merion SD" + "</option>");
+		}
+		
+		var distvalue = '125235502';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "125235502" + "\">" + "(125235502) Marple Newtown SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "125235502" + "\">" + "(125235502) Marple Newtown SD" + "</option>");
+		}
+		
+		var distvalue = '123465303';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123465303" + "\">" + "(123465303) Methacton SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123465303" + "\">" + "(123465303) Methacton SD" + "</option>");
+		}
+		
+		var distvalue = '123465602';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123465602" + "\">" + "(123465602) Norristown Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123465602" + "\">" + "(123465602) Norristown Area SD" + "</option>");
+		}
+		
+		var distvalue = '123465702';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123465702" + "\">" + "(123465702) North Penn SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123465702" + "\">" + "(123465702) North Penn SD" + "</option>");
+		}
+		
+		var distvalue = '124156503';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124156503" + "\">" + "(124156503) Octorara SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124156503" + "\">" + "(124156503) Octorara SD" + "</option>");
+		}
+		
+		var distvalue = '888888888';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "888888888" + "\">" + "(888888888) Out of State" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "888888888" + "\">" + "(888888888) Out of State" + "</option>");
+		}
+		
+		var distvalue = '124156603';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124156603" + "\">" + "(124156603) Owen J Roberts SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124156603" + "\">" + "(124156603) Owen J Roberts SD" + "</option>");
+		}
+		
+		var distvalue = '124156703';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124156703" + "\">" + "(124156703) Oxford Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124156703" + "\">" + "(124156703) Oxford Area SD" + "</option>");
+		}
+		
+		var distvalue = '121395103';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "121395103" + "\">" + "(121395103) Parkland SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "121395103" + "\">" + "(121395103) Parkland SD" + "</option>");
+		}
+		
+		var distvalue = '126515001';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "126515001" + "\">" + "(126515001) Philadelphia City SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "126515001" + "\">" + "(126515001) Philadelphia City SD" + "</option>");
+		}
+		
+		var distvalue = '124157203';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124157203" + "\">" + "(124157203) Phoenixville Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124157203" + "\">" + "(124157203) Phoenixville Area SD" + "</option>");
+		}
+		
+		var distvalue = '123466303';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123466303" + "\">" + "(123466303) Pottsgrove SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123466303" + "\">" + "(123466303) Pottsgrove SD" + "</option>");
+		}
+		
+		var distvalue = '123466403';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123466403" + "\">" + "(123466403) Pottstown SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123466403" + "\">" + "(123466403) Pottstown SD" + "</option>");
+		}
+		
+		var distvalue = '125237603';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "125237603" + "\">" + "(125237603) Radnor Township SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "125237603" + "\">" + "(125237603) Radnor Township SD" + "</option>");
+		}
+		
+		var distvalue = '125237903';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "125237903" + "\">" + "(125237903) Rose Tree Media SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "125237903" + "\">" + "(125237903) Rose Tree Media SD" + "</option>");
+		}
+		
+		var distvalue = '123467303';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123467303" + "\">" + "(123467303) Spring-Ford Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123467303" + "\">" + "(123467303) Spring-Ford Area SD" + "</option>");
+		}
+		
+		var distvalue = '125238502';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "125238502" + "\">" + "(125238502) Springfield SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "125238502" + "\">" + "(125238502) Springfield SD" + "</option>");
+		}
+		
+		var distvalue = '124151607';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124151607" + "\">" + "(124151607) Technical College High School" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124151607" + "\">" + "(124151607) Technical College High School" + "</option>");
+		}
+		
+		var distvalue = '124157802';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124157802" + "\">" + "(124157802) Tredyffrin/Easttown School District" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124157802" + "\">" + "(124157802) Tredyffrin/Easttown School District" + "</option>");
+		}
+		
+		var distvalue = '124158503';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124158503" + "\">" + "(124158503) Unionville-Chadds Ford SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124158503" + "\">" + "(124158503) Unionville-Chadds Ford SD" + "</option>");
+		}
+		
+		var distvalue = '125239452';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "125239452" + "\">" + "(125239452) Upper Darby SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "125239452" + "\">" + "(125239452) Upper Darby SD" + "</option>");
+		}
+		
+		var distvalue = '123468303';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123468303" + "\">" + "(123468303) Upper Dublin SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123468303" + "\">" + "(123468303) Upper Dublin SD" + "</option>");
+		}
+		
+		var distvalue = '123468402';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "123468402" + "\">" + "(123468402) Upper Merion Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "123468402" + "\">" + "(123468402) Upper Merion Area SD" + "</option>");
+		}
+		
+		var distvalue = '125239603';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "125239603" + "\">" + "(125239603) Wallingford-Swarthmore SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "125239603" + "\">" + "(125239603) Wallingford-Swarthmore SD" + "</option>");
+		}
+		
+		var distvalue = '124159002';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "124159002" + "\">" + "(124159002) West Chester Area SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "124159002" + "\">" + "(124159002) West Chester Area SD" + "</option>");
+		}
+		
+		var distvalue = '127049303';
+		if (distvalue == "888888888" || distvalue == "999999999") {
+			selectList.append("<option disabled value=\"" + "127049303" + "\">" + "(127049303) Western Beaver County SD" + "</option>");
+		} else {
+			selectList.append("<option value=\"" + "127049303" + "\">" + "(127049303) Western Beaver County SD" + "</option>");
+		}
+		
+	}
+	
+	jQuery(document).ready(function() {
+		buildEnrollmentDistrictList(jQuery('#EnrollmentDistrictCode'));
+		jQuery("#EnrollmentDistrictCode").val("124157802");
+	});
+	
+	/* Start:Smart search for 'Field 123. Home Language Code' */ 
+	$j(document).ready(function() {
+	var actvalue = 1;
+	var nces_code = '';
+	var description = '';
+	
+				
+		if(actvalue == 0){
+			$j("#selected_language").css({"opacity": "0.57"});
+		}
+		if (nces_code !="" && description != ""){
+			$j("#selected_language").val("("+nces_code+") "+description);
+		}		
+	});
+		
+	var langCodeArray = [
+	{ label : "(0010) Abkhazian", value : "0010" },
+	{ label : "(0020) Achinese", value : "0020" },
+	{ label : "(0030) Acoli", value : "0030" },
+	{ label : "(0040) Adangme", value : "0040" },
+	{ label : "(0050) Adygei", value : "0050" },
+	{ label : "(0060) Adyghe", value : "0060" },
+	{ label : "(0070) Afar", value : "0070" },
+	{ label : "(0090) Afrikaans", value : "0090" },
+	{ label : "(0100) Afro-Asiatic (Other)", value : "0100" },
+	{ label : "(0105) Ainu", value : "0105" },
+	{ label : "(0110) Akan", value : "0110" },
+	{ label : "(0130) Albanian", value : "0130" },
+	{ label : "(0135) Alemannic", value : "0135" },
+	{ label : "(0140) Aleut", value : "0140" },
+	{ label : "(0150) Algonquian languages", value : "0150" },
+	{ label : "(0155) Alsatian", value : "0155" },
+	{ label : "(0160) Altaic (Other)", value : "0160" },
+	{ label : "(0170) Amharic", value : "0170" },
+	{ label : "(0175) Angika", value : "0175" },
+	{ label : "(0180) Apache languages", value : "0180" },
+	{ label : "(0190) Arabic", value : "0190" },
+	{ label : "(0200) Aragonese", value : "0200" },
+	{ label : "(0210) Aramaic", value : "0210" },
+	{ label : "(0220) Arapaho", value : "0220" },
+	{ label : "(0230) Araucanian", value : "0230" },
+	{ label : "(0240) Arawak", value : "0240" },
+	{ label : "(0250) Armenian", value : "0250" },
+	{ label : "(0255) Aromanian", value : "0255" },
+	{ label : "(0265) Arumanian", value : "0265" },
+	{ label : "(0270) Assamese", value : "0270" },
+	{ label : "(0280) Asturian", value : "0280" },
+	{ label : "(0285) Asturleonese", value : "0285" },
+	{ label : "(0290) Athapascan languages", value : "0290" },
+	{ label : "(0300) Australian languages", value : "0300" },
+	{ label : "(0310) Austronesian (Other)", value : "0310" },
+	{ label : "(0320) Avaric", value : "0320" },
+	{ label : "(0340) Awadhi", value : "0340" },
+	{ label : "(0350) Aymara", value : "0350" },
+	{ label : "(0360) Azerbaijani", value : "0360" },
+	{ label : "(0380) Balinese", value : "0380" },
+	{ label : "(0390) Baltic (Other)", value : "0390" },
+	{ label : "(0400) Baluchi", value : "0400" },
+	{ label : "(0410) Bambara", value : "0410" },
+	{ label : "(0420) Bamileke languages", value : "0420" },
+	{ label : "(0430) Banda", value : "0430" },
+	{ label : "(0440) Bantu (Other)", value : "0440" },
+	{ label : "(0450) Basa", value : "0450" },
+	{ label : "(0460) Bashkir", value : "0460" },
+	{ label : "(0470) Basque", value : "0470" },
+	{ label : "(0480) Batak (Indonesia)", value : "0480" },
+	{ label : "(0485) Bedawiyet", value : "0485" },
+	{ label : "(0490) Beja", value : "0490" },
+	{ label : "(0500) Belarusian", value : "0500" },
+	{ label : "(0510) Bemba", value : "0510" },
+	{ label : "(0520) Bengali", value : "0520" },
+	{ label : "(0530) Berber (Other)", value : "0530" },
+	{ label : "(0540) Bhojpuri", value : "0540" },
+	{ label : "(0550) Bihari", value : "0550" },
+	{ label : "(0560) Bikol", value : "0560" },
+	{ label : "(0570) Bilin", value : "0570" },
+	{ label : "(0580) Bini", value : "0580" },
+	{ label : "(0590) Bislama", value : "0590" },
+	{ label : "(0600) Blin", value : "0600" },
+	{ label : "(0610) Bokm&aring;l, Norwegian", value : "0610" },
+	{ label : "(0615) Bliss", value : "0615" },
+	{ label : "(0616) Blissymbolics", value : "0616" },
+	{ label : "(0617) Blissymbols", value : "0617" },
+	{ label : "(0620) Bosnian", value : "0620" },
+	{ label : "(0630) Braj", value : "0630" },
+	{ label : "(0640) Breton", value : "0640" },
+	{ label : "(0650) Buginese", value : "0650" },
+	{ label : "(0660) Bulgarian", value : "0660" },
+	{ label : "(0670) Buriat", value : "0670" },
+	{ label : "(0680) Burmese", value : "0680" },
+	{ label : "(0690) Caddo", value : "0690" },
+	{ label : "(0700) Carib", value : "0700" },
+	{ label : "(0710) Castilian", value : "0710" },
+	{ label : "(0720) Catalan", value : "0720" },
+	{ label : "(0730) Caucasian (Other)", value : "0730" },
+	{ label : "(0740) Cebuano", value : "0740" },
+	{ label : "(0750) Celtic (Other)", value : "0750" },
+	{ label : "(0760) Central American Indian (Other)", value : "0760" },
+	{ label : "(0765) Central Khmer", value : "0765" },
+	{ label : "(0780) Chamic languages", value : "0780" },
+	{ label : "(0790) Chamorro", value : "0790" },
+	{ label : "(0800) Chechen", value : "0800" },
+	{ label : "(0810) Cherokee", value : "0810" },
+	{ label : "(0820) Chewa", value : "0820" },
+	{ label : "(0830) Cheyenne", value : "0830" },
+	{ label : "(0850) Chichewa", value : "0850" },
+	{ label : "(0860) Chinese (Mandarin)", value : "0860" },
+	{ label : "(0861) Chinese (Hakka)", value : "0861" },
+	{ label : "(0862) Chinese (Yue/Cantonese)", value : "0862" },
+	{ label : "(0863) Chinese (Minnan Fukiene)", value : "0863" },
+	{ label : "(0870) Chinook jargon", value : "0870" },
+	{ label : "(0880) Chipewyan", value : "0880" },
+	{ label : "(0890) Choctaw", value : "0890" },
+	{ label : "(0900) Chuang", value : "0900" },
+	{ label : "(0930) Chuukese", value : "0930" },
+	{ label : "(0940) Chuvash", value : "0940" },
+	{ label : "(0956) Cook Islands Maori", value : "0956" },
+	{ label : "(0970) Cornish", value : "0970" },
+	{ label : "(0980) Corsican", value : "0980" },
+	{ label : "(0990) Cree", value : "0990" },
+	{ label : "(1000) Creek", value : "1000" },
+	{ label : "(1010) Creoles and pidgins (Other)", value : "1010" },
+	{ label : "(1020) Creoles and pidgins, English-based (Other)", value : "1020" },
+	{ label : "(1030) Creoles and pidgins, French-based (Other)", value : "1030" },
+	{ label : "(1040) Creoles and pidgins, Portuguese-based (Other)", value : "1040" },
+	{ label : "(1050) Crimean Tatar", value : "1050" },
+	{ label : "(1060) Crimean Turkish", value : "1060" },
+	{ label : "(1070) Croatian", value : "1070" },
+	{ label : "(1080) Cushitic (Other)", value : "1080" },
+	{ label : "(1090) Czech", value : "1090" },
+	{ label : "(1100) Dakota", value : "1100" },
+	{ label : "(1110) Danish", value : "1110" },
+	{ label : "(1120) Dargwa", value : "1120" },
+	{ label : "(1130) Dayak", value : "1130" },
+	{ label : "(1140) Delaware", value : "1140" },
+	{ label : "(1145) Dene Suline", value : "1145" },
+	{ label : "(1146) Dhivehi", value : "1146" },
+	{ label : "(1147) Dimili", value : "1147" },
+	{ label : "(1148) Dimli", value : "1148" },
+	{ label : "(1150) Dinka", value : "1150" },
+	{ label : "(1160) Divehi", value : "1160" },
+	{ label : "(1170) Dogri", value : "1170" },
+	{ label : "(1180) Dogrib", value : "1180" },
+	{ label : "(1190) Dravidian (Other)", value : "1190" },
+	{ label : "(1200) Duala", value : "1200" },
+	{ label : "(1210) Dutch / Flemish", value : "1210" },
+	{ label : "(1230) Dyula", value : "1230" },
+	{ label : "(1240) Dzongkha", value : "1240" },
+	{ label : "(1245) Eastern Frisian", value : "1245" },
+	{ label : "(1246) Edo", value : "1246" },
+	{ label : "(1250) Efik", value : "1250" },
+	{ label : "(1270) Ekajuk", value : "1270" },
+	{ label : "(1290) English (Barbados)", value : "1290" },
+	{ label : "(1291) English (Guyana)", value : "1291" },
+	{ label : "(1292) English (Jamaican)", value : "1292" },
+	{ label : "(1293) English (Trinidad)", value : "1293" },
+	{ label : "(1320) Erzya", value : "1320" },
+	{ label : "(1340) Estonian", value : "1340" },
+	{ label : "(1350) Ewe", value : "1350" },
+	{ label : "(1360) Ewondo", value : "1360" },
+	{ label : "(1370) Fang", value : "1370" },
+	{ label : "(1380) Fanti", value : "1380" },
+	{ label : "(1390) Faroese", value : "1390" },
+	{ label : "(1400) Fijian", value : "1400" },
+	{ label : "(1401) Filipino", value : "1401" },
+	{ label : "(1410) Finnish", value : "1410" },
+	{ label : "(1420) Finno-Ugrian (Other)", value : "1420" },
+	{ label : "(1425) Flemish", value : "1425" },
+	{ label : "(1430) Fon", value : "1430" },
+	{ label : "(1440) French", value : "1440" },
+	{ label : "(1470) Frisian", value : "1470" },
+	{ label : "(1480) Friulian", value : "1480" },
+	{ label : "(1490) Fulah", value : "1490" },
+	{ label : "(1500) Ga", value : "1500" },
+	{ label : "(1510) Gaelic", value : "1510" },
+	{ label : "(1515) Galibi Carib", value : "1515" },
+	{ label : "(1516) Galician", value : "1516" },
+	{ label : "(1520) Gallegan", value : "1520" },
+	{ label : "(1530) Ganda", value : "1530" },
+	{ label : "(1540) Gayo", value : "1540" },
+	{ label : "(1550) Gbaya", value : "1550" },
+	{ label : "(1570) Georgian", value : "1570" },
+	{ label : "(1580) German", value : "1580" },
+	{ label : "(1590) German, Low", value : "1590" },
+	{ label : "(1620) Germanic (Other)", value : "1620" },
+	{ label : "(1630) Gikuyu: Kikkuyu", value : "1630" },
+	{ label : "(1640) Gilbertese", value : "1640" },
+	{ label : "(1650) Gondi", value : "1650" },
+	{ label : "(1660) Gorontalo", value : "1660" },
+	{ label : "(1680) Grebo", value : "1680" },
+	{ label : "(1700) Greek, Modern (1453-)", value : "1700" },
+	{ label : "(1701) Greenlandic; Kalaallisut", value : "1701" },
+	{ label : "(1710) Guarani", value : "1710" },
+	{ label : "(1720) Gujarati", value : "1720" },
+	{ label : "(1730) Gwich&acute;in", value : "1730" },
+	{ label : "(1740) Haida", value : "1740" },
+	{ label : "(1750) Haitian", value : "1750" },
+	{ label : "(1760) Haitian Creole", value : "1760" },
+	{ label : "(1770) Hausa", value : "1770" },
+	{ label : "(1780) Hawaiian", value : "1780" },
+	{ label : "(1790) Hebrew", value : "1790" },
+	{ label : "(1800) Herero", value : "1800" },
+	{ label : "(1810) Hiligaynon", value : "1810" },
+	{ label : "(1820) Himachali", value : "1820" },
+	{ label : "(1830) Hindi", value : "1830" },
+	{ label : "(1840) Hiri Motu", value : "1840" },
+	{ label : "(1850) Hittite", value : "1850" },
+	{ label : "(1860) Hmong", value : "1860" },
+	{ label : "(1870) Hungarian", value : "1870" },
+	{ label : "(1880) Hupa", value : "1880" },
+	{ label : "(1890) Iban", value : "1890" },
+	{ label : "(1900) Icelandic", value : "1900" },
+	{ label : "(1920) Igbo", value : "1920" },
+	{ label : "(1930) Ijo", value : "1930" },
+	{ label : "(1940) Iloko", value : "1940" },
+	{ label : "(1950) Inari Sami", value : "1950" },
+	{ label : "(1960) Indic (Other)", value : "1960" },
+	{ label : "(1970) Indo-European (Other)", value : "1970" },
+	{ label : "(1980) Indonesian", value : "1980" },
+	{ label : "(1990) Ingush", value : "1990" },
+	{ label : "(2020) Inuktitut", value : "2020" },
+	{ label : "(2030) Inupiaq", value : "2030" },
+	{ label : "(2040) Iranian (Other)", value : "2040" },
+	{ label : "(2050) Irish", value : "2050" },
+	{ label : "(2080) Iroquoian languages", value : "2080" },
+	{ label : "(2090) Italian", value : "2090" },
+	{ label : "(2100) Japanese", value : "2100" },
+	{ label : "(2110) Javanese", value : "2110" },
+	{ label : "(2115) Jingpho", value : "2115" },
+	{ label : "(2120) Judeo-Arabic", value : "2120" },
+	{ label : "(2130) Judeo-Persian", value : "2130" },
+	{ label : "(2140) Kabardian", value : "2140" },
+	{ label : "(2150) Kabyle", value : "2150" },
+	{ label : "(2160) Kachin", value : "2160" },
+	{ label : "(2170) Kalaallisut; Greenlandic", value : "2170" },
+	{ label : "(2180) Kalmyk", value : "2180" },
+	{ label : "(2190) Kamba", value : "2190" },
+	{ label : "(2200) Kannada", value : "2200" },
+	{ label : "(2210) Kanuri", value : "2210" },
+	{ label : "(2215) Kapampangan", value : "2215" },
+	{ label : "(2220) Karachay-Balkar", value : "2220" },
+	{ label : "(2230) Kara-Kalpak", value : "2230" },
+	{ label : "(2235) Karelian", value : "2235" },
+	{ label : "(2240) Karen", value : "2240" },
+	{ label : "(2250) Kashmiri", value : "2250" },
+	{ label : "(2260) Kashubian", value : "2260" },
+	{ label : "(2280) Kazakh", value : "2280" },
+	{ label : "(2290) Khasi", value : "2290" },
+	{ label : "(2300) Khmer", value : "2300" },
+	{ label : "(2310) Khoisan (Other)", value : "2310" },
+	{ label : "(2320) Khotanese", value : "2320" },
+	{ label : "(2330) Kikuyu", value : "2330" },
+	{ label : "(2340) Kimbundu", value : "2340" },
+	{ label : "(2350) Kinyarwanda", value : "2350" },
+	{ label : "(2355) Kirdki", value : "2355" },
+	{ label : "(2360) Kirghiz", value : "2360" },
+	{ label : "(2365) Kirmanjki", value : "2365" },
+	{ label : "(2380) Komi", value : "2380" },
+	{ label : "(2390) Kongo", value : "2390" },
+	{ label : "(2400) Konkani", value : "2400" },
+	{ label : "(2410) Korean", value : "2410" },
+	{ label : "(2420) Kosraean", value : "2420" },
+	{ label : "(2430) Kpelle", value : "2430" },
+	{ label : "(2440) Kru", value : "2440" },
+	{ label : "(2450) Kuanyama", value : "2450" },
+	{ label : "(2460) Kumyk", value : "2460" },
+	{ label : "(2470) Kurdish", value : "2470" },
+	{ label : "(2480) Kurukh", value : "2480" },
+	{ label : "(2490) Kutenai", value : "2490" },
+	{ label : "(2500) Kwanyama", value : "2500" },
+	{ label : "(2505) Kyrgyz", value : "2505" },
+	{ label : "(2510) Ladino", value : "2510" },
+	{ label : "(2520) Lahnda", value : "2520" },
+	{ label : "(2530) Lamba", value : "2530" },
+	{ label : "(2540) Lao", value : "2540" },
+	{ label : "(2545) Land Dayak languages", value : "2545" },
+	{ label : "(2560) Latvian", value : "2560" },
+	{ label : "(2570) Letzeburgesch", value : "2570" },
+	{ label : "(2575) Leonese", value : "2575" },
+	{ label : "(2580) Lezghian", value : "2580" },
+	{ label : "(2590) Limburgan", value : "2590" },
+	{ label : "(2600) Limburger", value : "2600" },
+	{ label : "(2610) Limburgish", value : "2610" },
+	{ label : "(2620) Lingala", value : "2620" },
+	{ label : "(2630) Lithuanian", value : "2630" },
+	{ label : "(2650) Low German", value : "2650" },
+	{ label : "(2660) Low Saxon", value : "2660" },
+	{ label : "(2670) Lower Sorbian", value : "2670" },
+	{ label : "(2680) Lozi", value : "2680" },
+	{ label : "(2690) Luba-Katanga", value : "2690" },
+	{ label : "(2700) Luba-Lulua", value : "2700" },
+	{ label : "(2710) Luiseno", value : "2710" },
+	{ label : "(2720) Lule Sami", value : "2720" },
+	{ label : "(2730) Lunda", value : "2730" },
+	{ label : "(2740) Luo (Kenya and Tanzania)", value : "2740" },
+	{ label : "(2750) Lushai", value : "2750" },
+	{ label : "(2760) Luxembourgish", value : "2760" },
+	{ label : "(2770) Macedonian", value : "2770" },
+	{ label : "(2775) Macedo-Romanian", value : "2775" },
+	{ label : "(2780) Madurese", value : "2780" },
+	{ label : "(2790) Magahi", value : "2790" },
+	{ label : "(2800) Maithili", value : "2800" },
+	{ label : "(2810) Makasar", value : "2810" },
+	{ label : "(2820) Malagasy", value : "2820" },
+	{ label : "(2830) Malay", value : "2830" },
+	{ label : "(2840) Malayalam", value : "2840" },
+	{ label : "(2845) Maldivian", value : "2845" },
+	{ label : "(2850) Maltese", value : "2850" },
+	{ label : "(2870) Mandar", value : "2870" },
+	{ label : "(2880) Mandingo", value : "2880" },
+	{ label : "(2890) Manipuri", value : "2890" },
+	{ label : "(2900) Manobo languages", value : "2900" },
+	{ label : "(2910) Manx", value : "2910" },
+	{ label : "(2920) Maori", value : "2920" },
+	{ label : "(2925) Mapuche", value : "2925" },
+	{ label : "(2926) Mapudungun", value : "2926" },
+	{ label : "(2930) Marathi", value : "2930" },
+	{ label : "(2940) Mari", value : "2940" },
+	{ label : "(2950) Marshallese", value : "2950" },
+	{ label : "(2960) Marwari", value : "2960" },
+	{ label : "(2970) Masai", value : "2970" },
+	{ label : "(2980) Mayan languages", value : "2980" },
+	{ label : "(2990) Mende", value : "2990" },
+	{ label : "(3000) Micmac", value : "3000" },
+	{ label : "(3001) Mi’kmaq", value : "3001" },
+	{ label : "(3010) Minangkabau", value : "3010" },
+	{ label : "(3011) Mirandese", value : "3011" },
+	{ label : "(3030) Mohawk", value : "3030" },
+	{ label : "(3040) Moksha", value : "3040" },
+	{ label : "(3050) Moldavian", value : "3050" },
+	{ label : "(3055) Moldovan", value : "3055" },
+	{ label : "(3060) Mon-Khmer (Other)", value : "3060" },
+	{ label : "(3070) Mongo", value : "3070" },
+	{ label : "(3080) Mongolian", value : "3080" },
+	{ label : "(3090) Mossi", value : "3090" },
+	{ label : "(3110) Munda languages", value : "3110" },
+	{ label : "(3115) N’Ko", value : "3115" },
+	{ label : "(3120) Nahuatl", value : "3120" },
+	{ label : "(3130) Nauru", value : "3130" },
+	{ label : "(3140) Navaho", value : "3140" },
+	{ label : "(3150) Navajo", value : "3150" },
+	{ label : "(3160) Ndebele, North", value : "3160" },
+	{ label : "(3170) Ndebele, South", value : "3170" },
+	{ label : "(3180) Ndonga", value : "3180" },
+	{ label : "(3190) Neapolitan", value : "3190" },
+	{ label : "(3195) Nepal Bhasa", value : "3195" },
+	{ label : "(3200) Nepali", value : "3200" },
+	{ label : "(3210) Newari; Nepal Bhasa", value : "3210" },
+	{ label : "(3220) Nias", value : "3220" },
+	{ label : "(3230) Niger-Kordofanian (Other)", value : "3230" },
+	{ label : "(3240) Nilo-Saharan (Other)", value : "3240" },
+	{ label : "(3250) Niuean", value : "3250" },
+	{ label : "(3260) Nogai", value : "3260" },
+	{ label : "(3280) North American Indian (Other)", value : "3280" },
+	{ label : "(3285) Northern Frisian", value : "3285" },
+	{ label : "(3290) Northern Sami", value : "3290" },
+	{ label : "(3291) Northern Sotho", value : "3291" },
+	{ label : "(3300) North Ndebele", value : "3300" },
+	{ label : "(3310) Norwegian", value : "3310" },
+	{ label : "(3320) Norwegian Bokm&aring;l", value : "3320" },
+	{ label : "(3330) Norwegian Nynorsk", value : "3330" },
+	{ label : "(3340) Nubian languages", value : "3340" },
+	{ label : "(3345) Nuosu", value : "3345" },
+	{ label : "(3350) Nyamwezi", value : "3350" },
+	{ label : "(3360) Nyanja", value : "3360" },
+	{ label : "(3370) Nyankole", value : "3370" },
+	{ label : "(3380) Nynorsk, Norwegian", value : "3380" },
+	{ label : "(3390) Nyoro", value : "3390" },
+	{ label : "(3400) Nzima", value : "3400" },
+	{ label : "(3405) Occidental", value : "3405" },
+	{ label : "(3410) Occitan (post 1500)", value : "3410" },
+	{ label : "(3417) Oirat", value : "3417" },
+	{ label : "(3420) Ojibwa", value : "3420" },
+	{ label : "(3470) Oriya", value : "3470" },
+	{ label : "(3480) Oromo", value : "3480" },
+	{ label : "(3490) Osage", value : "3490" },
+	{ label : "(3500) Ossetian", value : "3500" },
+	{ label : "(3510) Ossetic", value : "3510" },
+	{ label : "(3520) Otomian languages", value : "3520" },
+	{ label : "(3540) Palauan", value : "3540" },
+	{ label : "(3560) Pampanga", value : "3560" },
+	{ label : "(3570) Pangasinan", value : "3570" },
+	{ label : "(3580) Panjabi", value : "3580" },
+	{ label : "(3590) Papiamento", value : "3590" },
+	{ label : "(3600) Papuan (Other)", value : "3600" },
+	{ label : "(3601) Pedi", value : "3601" },
+	{ label : "(3605) Pashto", value : "3605" },
+	{ label : "(3610) Persian, Farsi", value : "3610" },
+	{ label : "(3630) Philippine (Other)", value : "3630" },
+	{ label : "(3641) Pilipino", value : "3641" },
+	{ label : "(3650) Pohnpeian", value : "3650" },
+	{ label : "(3660) Polish", value : "3660" },
+	{ label : "(3670) Portuguese", value : "3670" },
+	{ label : "(3680) Prakrit languages", value : "3680" },
+	{ label : "(3690) Proven&ccedil;al;Occitan (post 1500)", value : "3690" },
+	{ label : "(3710) Punjabi", value : "3710" },
+	{ label : "(3720) Pushto", value : "3720" },
+	{ label : "(3730) Quechua", value : "3730" },
+	{ label : "(3740) Raeto-Romance", value : "3740" },
+	{ label : "(3750) Rajasthani", value : "3750" },
+	{ label : "(3760) Rapanui", value : "3760" },
+	{ label : "(3770) Rarotongan", value : "3770" },
+	{ label : "(3790) Romance (Other)", value : "3790" },
+	{ label : "(3800) Romanian", value : "3800" },
+	{ label : "(3805) Romansh", value : "3805" },
+	{ label : "(3810) Romany", value : "3810" },
+	{ label : "(3820) Rundi", value : "3820" },
+	{ label : "(3830) Russian", value : "3830" },
+	{ label : "(3840) Salishan languages", value : "3840" },
+	{ label : "(3860) Sami languages (Other)", value : "3860" },
+	{ label : "(3870) Samoan", value : "3870" },
+	{ label : "(3880) Sandawe", value : "3880" },
+	{ label : "(3890) Sango", value : "3890" },
+	{ label : "(3910) Santali", value : "3910" },
+	{ label : "(3920) Sardinian", value : "3920" },
+	{ label : "(3930) Sasak", value : "3930" },
+	{ label : "(3940) Saxon, Low", value : "3940" },
+	{ label : "(3950) Scots", value : "3950" },
+	{ label : "(3960) Scottish Gaelic", value : "3960" },
+	{ label : "(3970) Selkup", value : "3970" },
+	{ label : "(3980) Semitic (Other)", value : "3980" },
+	{ label : "(3981) Sepedi", value : "3981" },
+	{ label : "(3990) Serbian", value : "3990" },
+	{ label : "(4000) Serer", value : "4000" },
+	{ label : "(4010) Shan", value : "4010" },
+	{ label : "(4020) Shona", value : "4020" },
+	{ label : "(4030) Sichuan Yi", value : "4030" },
+	{ label : "(4031) Sicilian", value : "4031" },
+	{ label : "(4040) Sidamo", value : "4040" },
+	{ label : "(4050) Sign languages", value : "4050" },
+	{ label : "(4060) Siksika", value : "4060" },
+	{ label : "(4070) Sindhi", value : "4070" },
+	{ label : "(4071) Sinhala", value : "4071" },
+	{ label : "(4080) Sinhalese", value : "4080" },
+	{ label : "(4090) Sino-Tibetan (Other)", value : "4090" },
+	{ label : "(4100) Siouan languages", value : "4100" },
+	{ label : "(4110) Skolt Sami", value : "4110" },
+	{ label : "(4120) Slave (Athapascan)", value : "4120" },
+	{ label : "(4130) Slavic (Other)", value : "4130" },
+	{ label : "(4140) Slovak", value : "4140" },
+	{ label : "(4150) Slovenian", value : "4150" },
+	{ label : "(4160) Sogdian", value : "4160" },
+	{ label : "(4170) Somali", value : "4170" },
+	{ label : "(4180) Songhai", value : "4180" },
+	{ label : "(4190) Soninke", value : "4190" },
+	{ label : "(4200) Sorbian languages", value : "4200" },
+	{ label : "(4210) Sotho, Northern", value : "4210" },
+	{ label : "(4220) Sotho, Southern", value : "4220" },
+	{ label : "(4230) South American Indian (Other)", value : "4230" },
+	{ label : "(4235) Southern Altai", value : "4235" },
+	{ label : "(4240) Southern Sami", value : "4240" },
+	{ label : "(4250) South Ndebele", value : "4250" },
+	{ label : "(4260) Spanish", value : "4260" },
+	{ label : "(4265) SrananTongo", value : "4265" },
+	{ label : "(4270) Sukuma", value : "4270" },
+	{ label : "(4290) Sundanese", value : "4290" },
+	{ label : "(4300) Susu", value : "4300" },
+	{ label : "(4310) Swahili", value : "4310" },
+	{ label : "(4320) Swati", value : "4320" },
+	{ label : "(4330) Swedish", value : "4330" },
+	{ label : "(4335) Swiss German", value : "4335" },
+	{ label : "(4340) Syriac", value : "4340" },
+	{ label : "(4350) Tagalog", value : "4350" },
+	{ label : "(4360) Tahitian", value : "4360" },
+	{ label : "(4370) Tai (Other)", value : "4370" },
+	{ label : "(4380) Tajik", value : "4380" },
+	{ label : "(4390) Tamashek", value : "4390" },
+	{ label : "(4400) Tamil", value : "4400" },
+	{ label : "(4410) Tatar", value : "4410" },
+	{ label : "(4420) Telugu", value : "4420" },
+	{ label : "(4430) Tereno", value : "4430" },
+	{ label : "(4440) Tetum", value : "4440" },
+	{ label : "(4450) Thai", value : "4450" },
+	{ label : "(4460) Tibetan", value : "4460" },
+	{ label : "(4470) Tigre", value : "4470" },
+	{ label : "(4480) Tigrinya", value : "4480" },
+	{ label : "(4490) Timne", value : "4490" },
+	{ label : "(4500) Tiv", value : "4500" },
+	{ label : "(4510) tlhlngan-Hol", value : "4510" },
+	{ label : "(4520) Tlingit", value : "4520" },
+	{ label : "(4530) Tok Pisin", value : "4530" },
+	{ label : "(4540) Tokelau", value : "4540" },
+	{ label : "(4550) Tonga (Nyasa)", value : "4550" },
+	{ label : "(4560) Tonga (Tonga Islands)", value : "4560" },
+	{ label : "(4570) Tsimshian", value : "4570" },
+	{ label : "(4580) Tsonga", value : "4580" },
+	{ label : "(4590) Tswana", value : "4590" },
+	{ label : "(4600) Tumbuka", value : "4600" },
+	{ label : "(4610) Tupi languages", value : "4610" },
+	{ label : "(4620) Turkish", value : "4620" },
+	{ label : "(4630) Turkish, Ottoman (1500-1928)", value : "4630" },
+	{ label : "(4640) Turkmen", value : "4640" },
+	{ label : "(4650) Tuvalu", value : "4650" },
+	{ label : "(4660) Tuvinian", value : "4660" },
+	{ label : "(4670) Twi", value : "4670" },
+	{ label : "(4680) Udmurt", value : "4680" },
+	{ label : "(4700) Uighur; Uyghur", value : "4700" },
+	{ label : "(4710) Ukrainian", value : "4710" },
+	{ label : "(4720) Umbundu", value : "4720" },
+	{ label : "(4730) Undetermined", value : "4730" },
+	{ label : "(4740) Upper Sorbian", value : "4740" },
+	{ label : "(4750) Urdu", value : "4750" },
+	{ label : "(4755) Uyghur", value : "4755" },
+	{ label : "(4760) Uzbek", value : "4760" },
+	{ label : "(4770) Vai", value : "4770" },
+	{ label : "(4780) Valencian", value : "4780" },
+	{ label : "(4790) Venda", value : "4790" },
+	{ label : "(4800) Vietnamese", value : "4800" },
+	{ label : "(4820) Votic", value : "4820" },
+	{ label : "(4830) Wakashan languages", value : "4830" },
+	{ label : "(4840) Walamo", value : "4840" },
+	{ label : "(4850) Walloon", value : "4850" },
+	{ label : "(4860) Waray", value : "4860" },
+	{ label : "(4870) Washo", value : "4870" },
+	{ label : "(4880) Welsh", value : "4880" },
+	{ label : "(4885) Western Frisian", value : "4885" },
+	{ label : "(4886) Wolaitta", value : "4886" },
+	{ label : "(4887) Wolaytta", value : "4887" },
+	{ label : "(4890) Wolof", value : "4890" },
+	{ label : "(4900) Xhosa", value : "4900" },
+	{ label : "(4910) Yakut", value : "4910" },
+	{ label : "(4920) Yao", value : "4920" },
+	{ label : "(4930) Yapese", value : "4930" },
+	{ label : "(4940) Yiddish", value : "4940" },
+	{ label : "(4950) Yoruba", value : "4950" },
+	{ label : "(4960) Yupik languages", value : "4960" },
+	{ label : "(4970) Zande", value : "4970" },
+	{ label : "(4980) Zapotec", value : "4980" },
+	{ label : "(4985) Zaza", value : "4985" },
+	{ label : "(4986) Zazaki", value : "4986" },
+	{ label : "(4990) Zenaga", value : "4990" },
+	{ label : "(5000) Zhuang", value : "5000" },
+	{ label : "(5010) Zulu", value : "5010" },
+	{ label : "(5011) Zuni", value : "5011" },
+	{ label : "() English", value : "" },
+	{ label : "", value :""}];
+	
+		
+	$j(function() {
+		var version = $j.ui ? $j.ui.version || "1.5.2" : null;
+		var jquiMajor = parseInt($j.ui.version.split('.')[0]);
+		var jquiMinor = parseInt($j.ui.version.split('.')[1]);
+		var autoCompleteStr = 'ui-autocomplete';
+		var autoCompleteItemStr = 'ui-autocomplete-item';
+
+		if(jquiMajor == 1 && jquiMinor < 10){
+			autoCompleteStr = 'autocomplete';
+	   		autoCompleteItemStr = 'item.autocomplete';
+		}
+
+		$j( '#selected_language' ).autocomplete({
+			minLength: 0,
+			source: langCodeArray,
+			select: function( event, ui ) {
+				var uiID = $j(this).attr('id');
+				$j("#"+uiID+"").css({"opacity": ""});
+				$j( "#"+uiID+"" ).val( ui.item.label );
+				$j( "#lang_code").val( ui.item.value );
+				return false;
+			}
+		})
+		.data(autoCompleteStr)._renderItem = function( ul, item ) {
+			return $j( "<li></li>" )
+				.data( autoCompleteItemStr, item )
+				.append( "<a>" + item.label + "</a>" )
+				.appendTo( ul );
+		};
+	});
+	
+	function hasLanguageLabelExist(label) {
+		var i = null;
+		for (i = 0;i <(langCodeArray.length)-1; i += 1) {
+			if (langCodeArray[i].label === label) {
+				return true;
+			}
+		}    
+		return false;
+	};
+	jQuery(document).ready(function() {
+		$j("form" ).submit(function(){
+			var currentSelectedLang = $j( '#selected_language' ).val();
+			if(!hasLanguageLabelExist (currentSelectedLang)){
+			//code not exst;
+			$j( "#lang_code").val("");
+			}
+
+			//PSSR-249456 - Changes start
+            let distType = "";
+            let field189 = "";
+
+            let retLoc = "124157802";
+            let aunNum = "124157802";
+            if (retLoc != "000000000") {
+                field189 = retLoc;
+            } else {
+                field189 = aunNum;
+            }
+            
+                distType = 'SD';
+            
+            if (!field189 && distType === 'CTC') {
+                alert("This District is identified as a CTC, therefore an override value is required for Funding District Code.");
+            }
+            //PSSR-249456 - Changes end
+		})
+	});		
+	/* End:Smart search for 'Field 123. Home Language Code' */
+
+
+
+
+
+
+
+
+
+
+
+			
+		}
+	}
+
+	function movePDEfields() {
+		$j( '.linkDescList' ).eq(0).append( '<tr><tdcolspan="3">&nbsp;</td></tr>' );
+		$j( '.linkDescList' ).eq(0).append( '<tr><th colspan="3">PDE Fields</th></tr>' );
+
+		var fields = [ '[data-key="students.s_pa_stu_x.lep_ell_status_code"]',
+						'[data-key="students.s_pa_stu_x.liep_type"]',
+						'[data-key="students.s_pa_stu_x.esl_bilingual_education_date"]',
+						'[data-key="students.s_pa_stu_x.lep_eligibility_yn"]',
+						'#lang_code',
+						'[data-key="students.s_pa_stu_x.years_in_us_schools_code"]',
+						'[data-key="students.s_pa_stu_x.access_ells_assessment"]',
+						'[data-key="students.s_pa_stu_x.elaassessment_exempt_ind"]'
+						];
+
+		fields.forEach(function(s) {
+			if ( s == '#lang_code' ) {
+				// Remove the link because it causes confusion.
+				$j( '[title="[S_PA_STU_X]Home_Language_Code"]' ).html( 'Field 123. Home Language Code' );
+			}
+
+			var tr = $j( s ).parents('tr').attr( 'class', '' ).remove().clone();
+			$j( '.linkDescList' ).eq(0).append( tr );
+		});
+
+		$j( '#pdeFields' ).remove();
+
+
+	}
+
+
+	$j(function() {
+		setTimeout( hammerAngular, 1500 );
+	});
+
+
+</script>
+
+</div>
