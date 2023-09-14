@@ -1,9 +1,10 @@
 {
   "name": "te-ecollect-customizations",
-  "version": "23.8.0",
+  "version": "23.9.3",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "npx ps-package",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/TESD-Tech/te-ecollect-customizations#readme",
   "devDependencies": {
-    "@tesd-tech/ps-package": "github:tesd-tech/ps-package"
+    "@tesd-tech/ps-package": "^23.9.15",
+    "npm-check-updates": "^16.14.2"
   }
 }
