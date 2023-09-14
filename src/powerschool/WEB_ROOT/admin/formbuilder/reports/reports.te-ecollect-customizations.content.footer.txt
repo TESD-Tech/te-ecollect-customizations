@@ -1,0 +1,7 @@
+<!--- START reports.tesd-ecollect-customizations.content.footer.txt --->
+<script>
+  () => {
+    // Add more options to pagination dropdown
+  }
+</script>
+<!--- END reports.tesd-ecollect-customizations.content.footer.txt --->
