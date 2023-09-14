@@ -15,4 +15,4 @@ Note: The PS Teacher Portal Discipline Form Responses Report will not work witho
 
 Clone this repository, then run `pnpm install` to install dependencies.
 
-PowerSchool plugin source code directory is `src/powerschool`. The plugin is built with `pnpm run build`. The built plugin is in `plugin_archive/{PLUGIN NAME}-{VERSION}.zip`. Two plugins are built, one for the main plugin and one for database schema definitions.
+PowerSchool plugin source code directory is `src/powerschool`. The plugin is built with `pnpm run build`. The built plugin is in `plugin_archive/{PLUGIN NAME}-{VERSION}.zip`. Two plugins are created, one for the main plugin and one for database schema definitions.
