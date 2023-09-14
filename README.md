@@ -1,6 +1,6 @@
 # TESD Ecollect Customizations
 
-TESD Specific Ecollect customizations. Sharing for informational purposes. Currently sparsely documented and not fit for public consumption.
+TESD Specific Ecollect customizations. Sharing for informational purposes. Currently sparsely commented and not fit for public consumption.
 
 ## Features
 
