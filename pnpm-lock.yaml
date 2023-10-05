@@ -9,8 +9,8 @@ devDependencies:
     specifier: ^23.9.15
     version: 23.9.15
   npm-check-updates:
-    specifier: ^16.14.4
-    version: 16.14.4
+    specifier: ^16.14.5
+    version: 16.14.5
 
 packages:
 
@@ -1453,8 +1453,8 @@ packages:
       npm-normalize-package-bin: 3.0.1
     dev: true
 
-  /npm-check-updates@16.14.4:
-    resolution: {integrity: sha512-PKg1wv3vno75/9qgRLqV2huBO7eukOlW+PmIGl7LPXjElfYTUTWUtaMOdOckImaSj4Uqe46W/zMbMFZQp5dHRQ==}
+  /npm-check-updates@16.14.5:
+    resolution: {integrity: sha512-f7v3YzPUgadtkB2LAVhiWMjrSejJ0N8OM9JjjVfxBz2neHqmPSWQUAUA+U/p3xeXHl9bghRD6knRqBhm9dkRGg==}
     engines: {node: '>=14.14'}
     hasBin: true
     dependencies:
