@@ -6,10 +6,10 @@ settings:
 
 devDependencies:
   '@tesd-tech/ps-package':
-    specifier: ^23.9.29
-    version: 23.9.29
+    specifier: ^23.11.1
+    version: 23.11.1
   npm-check-updates:
-    specifier: ^16.14.6
+    specifier: ^16.14.4
     version: 16.14.6
 
 packages:
@@ -199,8 +199,8 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tesd-tech/ps-package@23.9.29:
-    resolution: {integrity: sha512-q1LBUVhv6GgVZSGI3a8Ai+VwYn5wG4yP2xBW3AYngjDP9xfB+/6Y8aBw2a573spzvmpq61V9DX4tkXph42tNkw==}
+  /@tesd-tech/ps-package@23.11.1:
+    resolution: {integrity: sha512-RnmMA11GDG2BNFmadXTO8L+JHcVoYOgZE1QdA9ZUduHgzDzFEnq4a30Obt19BuSqGYX0jVq79iO5kM+GUoW8cA==}
     hasBin: true
     dependencies:
       archiver: 6.0.1
@@ -400,7 +400,7 @@ packages:
     dependencies:
       '@npmcli/fs': 3.1.0
       fs-minipass: 3.0.3
-      glob: 10.3.4
+      glob: 10.3.10
       lru-cache: 7.18.3
       minipass: 7.0.3
       minipass-collect: 1.0.2
@@ -789,18 +789,6 @@ packages:
       path-scurry: 1.10.1
     dev: true
 
-  /glob@10.3.4:
-    resolution: {integrity: sha512-6LFElP3A+i/Q8XQKEvZjkEWEOTgAIALR9AO2rwT8bgPhDd1anmqDJDZ6lLddI4ehxxxR1S5RIqKe1uapMQfYaQ==}
-    engines: {node: '>=16 || 14 >=14.17'}
-    hasBin: true
-    dependencies:
-      foreground-child: 3.1.1
-      jackspeak: 2.3.3
-      minimatch: 9.0.3
-      minipass: 7.0.3
-      path-scurry: 1.10.1
-    dev: true
-
   /glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
     dependencies:
@@ -1078,15 +1066,6 @@ packages:
 
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
-    dev: true
-
-  /jackspeak@2.3.3:
-    resolution: {integrity: sha512-R2bUw+kVZFS/h1AZqBKrSgDmdmjApzgY0AlCPumopFiAlbUxE2gf+SCuBzQ0cP5hHmUmFYF5yw55T97Th5Kstg==}
-    engines: {node: '>=14'}
-    dependencies:
-      '@isaacs/cliui': 8.0.2
-    optionalDependencies:
-      '@pkgjs/parseargs': 0.11.0
     dev: true
 
   /jackspeak@2.3.6:
@@ -1731,7 +1710,7 @@ packages:
     resolution: {integrity: sha512-AEtWXYfopBj2z5N5PbkAOeNHRPUg5q+Nen7QLxV8M2zJq1ym6/lCz3fYNTCXe19puu2d06jfHhrP7v/S2PtMMw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     dependencies:
-      glob: 10.3.4
+      glob: 10.3.10
       json-parse-even-better-errors: 3.0.0
       normalize-package-data: 5.0.0
       npm-normalize-package-bin: 3.0.1
