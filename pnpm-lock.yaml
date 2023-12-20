@@ -6,8 +6,8 @@ settings:
 
 devDependencies:
   '@tesd-tech/ps-package':
-    specifier: ^23.11.1
-    version: 23.11.1
+    specifier: ^23.11.2
+    version: 23.11.2
   npm-check-updates:
     specifier: ^16.14.11
     version: 16.14.11
@@ -199,13 +199,13 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tesd-tech/ps-package@23.11.1:
-    resolution: {integrity: sha512-RnmMA11GDG2BNFmadXTO8L+JHcVoYOgZE1QdA9ZUduHgzDzFEnq4a30Obt19BuSqGYX0jVq79iO5kM+GUoW8cA==}
+  /@tesd-tech/ps-package@23.11.2:
+    resolution: {integrity: sha512-8LsrPkMwgQ1KCkRUapth67Tig7HjKS2FyxPsZ5KPUkDeAqH+ZFB5vFvB5gP6/BwrsaXzP1NZsNh/SBY608392Q==}
     hasBin: true
     dependencies:
       archiver: 6.0.1
       calver: 22.9.1
-      fs-extra: 11.1.1
+      fs-extra: 11.2.0
       minimist: 1.2.8
       xml2js: 0.6.2
     dev: true
@@ -715,8 +715,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /fs-extra@11.1.1:
-    resolution: {integrity: sha512-MGIE4HOvQCeUCzmlHs0vXpih4ysz4wg9qiSAu6cd42lVwPbTM1TjV7RusoyQqMmk/95gdQZX72u+YW+c3eEpFQ==}
+  /fs-extra@11.2.0:
+    resolution: {integrity: sha512-PmDi3uwK5nFuXh7XDTlVnS17xJS7vW36is2+w3xcv8SVxiB4NyATf4ctkVY5bkSjX0Y4nbvZCq1/EjtEyr9ktw==}
     engines: {node: '>=14.14'}
     dependencies:
       graceful-fs: 4.2.11
