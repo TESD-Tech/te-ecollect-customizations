@@ -6,8 +6,8 @@ settings:
 
 devDependencies:
   '@tesd-tech/ps-package':
-    specifier: ^23.11.2
-    version: 23.11.2
+    specifier: ^23.12.0
+    version: 23.12.0
   npm-check-updates:
     specifier: ^16.14.12
     version: 16.14.12
@@ -199,8 +199,8 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tesd-tech/ps-package@23.11.2:
-    resolution: {integrity: sha512-8LsrPkMwgQ1KCkRUapth67Tig7HjKS2FyxPsZ5KPUkDeAqH+ZFB5vFvB5gP6/BwrsaXzP1NZsNh/SBY608392Q==}
+  /@tesd-tech/ps-package@23.12.0:
+    resolution: {integrity: sha512-mbeQacuOaEOldXU9gENStdQvoqndBcMasBc4GjO9muldphh/QgsGl/Bu5J0uoH8lBZKmzE37sVOplJ8AZEGQ7g==}
     hasBin: true
     dependencies:
       archiver: 6.0.1
