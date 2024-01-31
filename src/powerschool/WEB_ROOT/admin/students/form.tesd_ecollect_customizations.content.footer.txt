@@ -75,23 +75,98 @@
 
 ~[if#onlinereg.security.inrole=9,43]
 <script>
-	// Close the pending notification
+	// Close the pending notification & add Approve - OK button
 	function init() {
-		setTimeout(() => {
-			document.querySelector('.confirm').click()
-		}, 2000)
+		// Create a new button
+		var button = document.createElement('a');
+
+		// Set the button's properties
+		button.textContent = 'Approve - OK';
+		button.id = 'approve-ok-btn';
+		button.className = 'btn btn-success btn-sm ng-binding ng-scope';
+
+		// Append the button to the ".subButton" div
+		document.querySelector('.subButton').appendChild(button);
+
+		// Add click event listener to the new button
+		button.addEventListener('click', approveWithPassword);
+
+		// Create a new observer
+		var observer = new MutationObserver(function (mutations) {
+			mutations.forEach(function (mutation) {
+				if (mutation.addedNodes.length) {
+					for (var i = 0; i < mutation.addedNodes.length; i++) {
+						var node = mutation.addedNodes[i];
+						// Check if the node is an element
+						if (node.nodeType === Node.ELEMENT_NODE) {
+							// If the node has the 'sweet-alert' class
+							if (node.classList.contains('sweet-alert')) {
+								document.querySelector('.confirm').click();
+								observer.disconnect();
+								return;
+							}
+						}
+					}
+				}
+			});
+		});
+
+		// Start observing
+		observer.observe(document.body, {
+			childList: true,
+			subtree: true
+		});
 	}
 
 	function approveWithPassword() {
-		document.getElementById('student-form-approve-btn').click()
-		setTimeout(() => {
-			const pw = document.getElementById('password')
-			pw.focus()
-			pw.value = 'ok'
-			pw.trigger('change')
-		}, 1000)
+			document.getElementById('student-form-approve-btn').click();
 
-	}
+			// Create a new observer
+			var observer = new MutationObserver(function (mutations) {
+				// For each mutation
+				mutations.forEach(function (mutation) {
+					// If the addedNodes property has one or more nodes
+					if (mutation.addedNodes.length) {
+						// Check each node
+						for (var i = 0; i < mutation.addedNodes.length; i++) {
+							var node = mutation.addedNodes[i];
+							// Check if the node is an element
+							if (node.nodeType === Node.ELEMENT_NODE) {
+								// If the node or its descendants has the 'modal-body' class
+								if (node.classList.contains('modal-body') || node.querySelector('.modal-body')) {
+									// Find the password input within the node
+									var pw = node.querySelector('#password');
+									if (pw) {
+										// Focus the password input and set its value
+										pw.focus();
+										pw.value = 'ok';
+										pw.dispatchEvent(new Event('change'));
+									}
+								}
+								// If the node or its descendants has the 'modal-footer' class
+								if (node.classList.contains('modal-footer') || node.querySelector('.modal-footer')) {
+									// Find the approve button within the node
+									var approveButton = node.querySelector('.btn.btn-primary.ng-binding');
+									if (approveButton) {
+										// Click the approve button
+										approveButton.click();
+										// Stop observing
+										observer.disconnect();
+										return;
+									}
+								}
+							}
+						}
+					}
+				});
+			});
+
+			// Start observing
+			observer.observe(document.body, {
+				childList: true,
+				subtree: true
+			});
+		}
 
 	init()
 </script>
