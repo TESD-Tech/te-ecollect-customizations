@@ -1,4 +1,5 @@
 <!-- BEGIN form.tesd_ecollect_customizations.content.footer.txt -->
+<script src="/scripts/psQuery/psQuery.js"></script>
 <script type="text/javascript">
 	function sendStudentScheduleEmail() {
 
@@ -71,5 +72,29 @@
 		$j( '#student_detail_header' ).prepend( '<button id="send_student_email" onclick="sendStudentScheduleEmail()">Send Rejection Email</button>');
 	</script>
 [/if]
+
+~[if#onlinereg.security.inrole=9,43]
+<script>
+	// Close the pending notification
+	function init() {
+		setTimeout(() => {
+			document.querySelector('.confirm').click()
+		}, 2000)
+	}
+
+	function approveWithPassword() {
+		document.getElementById('student-form-approve-btn').click()
+		setTimeout(() => {
+			const pw = document.getElementById('password')
+			pw.focus()
+			pw.value = 'ok'
+			pw.trigger('change')
+		}, 1000)
+
+	}
+
+	init()
+</script>
+[/if#onlinereg]
 
 <!-- END form.tesd_ecollect_customizations.content.footer.txt -->
