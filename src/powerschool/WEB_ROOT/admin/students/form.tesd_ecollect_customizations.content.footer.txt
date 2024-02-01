@@ -78,18 +78,16 @@
 	// Close the pending notification & add Approve - OK button
 	function init() {
 		// Create a new button
-		var button = document.createElement('a');
+		var button = document.createElement('button');
 
 		// Set the button's properties
 		button.textContent = 'Approve - OK';
 		button.id = 'approve-ok-btn';
-		button.className = 'btn btn-success btn-sm ng-binding ng-scope';
+		button.setAttribute('onclick', 'approveWithPassword()');
+		// button.className = 'btn btn-info btn-sm';
 
 		// Append the button to the ".subButton" div
 		document.querySelector('.subButton').appendChild(button);
-
-		// Add click event listener to the new button
-		button.addEventListener('click', approveWithPassword);
 
 		// Create a new observer
 		var observer = new MutationObserver(function (mutations) {
@@ -119,6 +117,7 @@
 	}
 
 	function approveWithPassword() {
+		console.log('Approving with password');
 			document.getElementById('student-form-approve-btn').click();
 
 			// Create a new observer
