@@ -9,13 +9,8 @@ devDependencies:
     specifier: ^24.3.0
     version: 24.3.0
   npm-check-updates:
-<<<<<<< HEAD
     specifier: ^16.14.20
     version: 16.14.20
-=======
-    specifier: ^16.14.18
-    version: 16.14.18
->>>>>>> 2449e41730171511ad8bcce46c4646ce67917134
 
 packages:
 
@@ -437,7 +432,7 @@ packages:
       minipass-pipeline: 1.2.4
       p-map: 4.0.0
       ssri: 10.0.5
-      tar: 6.2.1
+      tar: 6.2.0
       unique-filename: 3.0.0
     dev: true
 
@@ -1018,8 +1013,8 @@ packages:
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
     dev: true
 
-  /ip@2.0.1:
-    resolution: {integrity: sha512-lJUL9imLTNi1ZfXT+DU6rBBdbiKGBuay9B6xGSPVjUeQwaH1RIGqef8RZkUtHioLmSNpPR5M4HVKJGm1j8FWVQ==}
+  /ip@2.0.0:
+    resolution: {integrity: sha512-WKa+XuLG1A1R0UWhl2+1XQSi+fZWMsYKffMZTTYsiZaUD8k2yDAj5atimTUD2TZkyCkNEeYE5NhFZmupOGtjYQ==}
     dev: true
 
   /is-ci@3.0.1:
@@ -1396,7 +1391,7 @@ packages:
       npmlog: 6.0.2
       rimraf: 3.0.2
       semver: 7.5.4
-      tar: 6.2.1
+      tar: 6.2.0
       which: 2.0.2
     transitivePeerDependencies:
       - supports-color
@@ -1437,13 +1432,8 @@ packages:
       npm-normalize-package-bin: 3.0.1
     dev: true
 
-<<<<<<< HEAD
   /npm-check-updates@16.14.20:
     resolution: {integrity: sha512-sYbIhun4DrjO7NFOTdvs11nCar0etEhZTsEjL47eM0TuiGMhmYughRCxG2SpGRmGAQ7AkwN7bw2lWzoE7q6yOQ==}
-=======
-  /npm-check-updates@16.14.18:
-    resolution: {integrity: sha512-9iaRe9ohx9ykdbLjPRIYcq1A0RkrPYUx9HmQK1JIXhfxtJCNE/+497H9Z4PGH6GWRALbz5KF+1iZoySK2uSEpQ==}
->>>>>>> 2449e41730171511ad8bcce46c4646ce67917134
     engines: {node: '>=14.14'}
     hasBin: true
     dependencies:
@@ -1613,7 +1603,7 @@ packages:
       read-package-json-fast: 3.0.2
       sigstore: 1.9.0
       ssri: 10.0.5
-      tar: 6.2.1
+      tar: 6.2.0
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -1978,7 +1968,7 @@ packages:
     resolution: {integrity: sha512-7maUZy1N7uo6+WVEX6psASxtNlKaNVMlGQKkG/63nEDdLOWNbiUMoLK7X4uYoLhQstau72mLgfEWcXcwsaHbYQ==}
     engines: {node: '>= 10.13.0', npm: '>= 3.0.0'}
     dependencies:
-      ip: 2.0.1
+      ip: 2.0.0
       smart-buffer: 4.2.0
     dev: true
 
@@ -2099,8 +2089,8 @@ packages:
       streamx: 2.15.1
     dev: true
 
-  /tar@6.2.1:
-    resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
+  /tar@6.2.0:
+    resolution: {integrity: sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==}
     engines: {node: '>=10'}
     dependencies:
       chownr: 2.0.0
