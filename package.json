@@ -1,6 +1,6 @@
 {
   "name": "te-ecollect-customizations",
-  "version": "23.9.5",
+  "version": "24.5.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/TESD-Tech/te-ecollect-customizations#readme",
   "devDependencies": {
-    "@tesd-tech/ps-package": "^24.1.1",
-    "npm-check-updates": "^16.14.14"
+    "@tesd-tech/ps-package": "^24.3.0",
+    "npm-check-updates": "^16.14.20"
   }
 }
