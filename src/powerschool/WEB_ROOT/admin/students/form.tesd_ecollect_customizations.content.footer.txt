@@ -3,9 +3,9 @@
 <script type="text/javascript">
 	function sendStudentScheduleEmail() {
 
-		let parentEmail = prompt('Parent Email' );
+		let parentEmail = prompt('Parent Email');
 
-		if ( parentEmail ) {
+		if (parentEmail) {
 
 			const data = {
 				"from": "noreply@tesd.net",
@@ -16,39 +16,39 @@
 			};
 
 
-		  console.log('Sending data');
+			console.log('Sending data');
 
-		  const XHR = new XMLHttpRequest();
+			const XHR = new XMLHttpRequest();
 
-		  const urlEncodedDataPairs = [];
+			const urlEncodedDataPairs = [];
 
-		  // Turn the data object into an array of URL-encoded key/value pairs.
-		  for (const [name, value] of Object.entries(data)) {
-		    urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
-		  }
+			// Turn the data object into an array of URL-encoded key/value pairs.
+			for (const [name, value] of Object.entries(data)) {
+				urlEncodedDataPairs.push(`${encodeURIComponent(name)}=${encodeURIComponent(value)}`);
+			}
 
-		  // Combine the pairs into a single string and replace all %-encoded spaces to
-		  // the '+' character; matches the behavior of browser form submissions.
-		  const urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+			// Combine the pairs into a single string and replace all %-encoded spaces to
+			// the '+' character; matches the behavior of browser form submissions.
+			const urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
-		  // Define what happens on successful data submission
-		  XHR.addEventListener('load', (event) => {
-		    alert('Email sent.');
-		  });
+			// Define what happens on successful data submission
+			XHR.addEventListener('load', (event) => {
+				alert('Email sent.');
+			});
 
-		  // Define what happens in case of error
-		  XHR.addEventListener('error', (event) => {
-		    alert('Oops! Something went wrong.');
-		  });
+			// Define what happens in case of error
+			XHR.addEventListener('error', (event) => {
+				alert('Oops! Something went wrong.');
+			});
 
-		  // Set up our request
-		  XHR.open('POST', '/admin/changesrecorded.white_nf.html');
+			// Set up our request
+			XHR.open('POST', '/admin/changesrecorded.white_nf.html');
 
-		  // Add the required HTTP header for form data POST requests
-		  XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			// Add the required HTTP header for form data POST requests
+			XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-		  // Finally, send our data.
-		  XHR.send(urlEncodedData);
+			// Finally, send our data.
+			XHR.send(urlEncodedData);
 		}
 	}
 
@@ -57,23 +57,24 @@
 ~[if.~(gpv.emailSent)=true]<div class="feedback-confirm">Email sent.</div>[/if]
 ~[if.~[x:loginusername]=benjamin]
 
-	<form id="tesd_form" action="~[if#guardianPortal.~[directory]=guardian]/guardian/changesrecorded.html[else#guardianPortal]/admin/changesrecorded.white.html?frn=~(studentfrn)[/if#guardianPortal]" method="POST">
-		<div style="display: none;" id="emailthis">
-			From <input type="text" name="from" value="noreply@tesd.net" size=75 >
-			To <input type="text" name="mailto" value="" id="mailtoaddress" size=75 >
-			Subject <input type="text" name="subject" value="" size=35>
-			Message <input  id="pt_embody" name="body" value=''>
-			<input type="hidden" id="mailout" type="text" name="ac" value="mail">
-		</div>
-	</form>
-	
+<form id="tesd_form"
+	action="~[if#guardianPortal.~[directory]=guardian]/guardian/changesrecorded.html[else#guardianPortal]/admin/changesrecorded.white.html?frn=~(studentfrn)[/if#guardianPortal]"
+	method="POST">
+	<div style="display: none;" id="emailthis">
+		From <input type="text" name="from" value="noreply@tesd.net" size=75>
+		To <input type="text" name="mailto" value="" id="mailtoaddress" size=75>
+		Subject <input type="text" name="subject" value="" size=35>
+		Message <input id="pt_embody" name="body" value=''>
+		<input type="hidden" id="mailout" type="text" name="ac" value="mail">
+	</div>
+</form>
 
-	<script>
-		$j( '#student_detail_header' ).prepend( '<button id="send_student_email" onclick="sendStudentScheduleEmail()">Send Rejection Email</button>');
-	</script>
+
+<script>
+	$j('#student_detail_header').prepend('<button id="send_student_email" onclick="sendStudentScheduleEmail()">Send Rejection Email</button>');
+</script>
 [/if]
 
-~[if#onlinereg.security.inrole=9,43]
 <script>
 	// Close the pending notification & add Approve - OK button
 	function init() {
@@ -118,57 +119,56 @@
 
 	function approveWithPassword() {
 		console.log('Approving with password');
-			document.getElementById('student-form-approve-btn').click();
+		document.getElementById('student-form-approve-btn').click();
 
-			// Create a new observer
-			var observer = new MutationObserver(function (mutations) {
-				// For each mutation
-				mutations.forEach(function (mutation) {
-					// If the addedNodes property has one or more nodes
-					if (mutation.addedNodes.length) {
-						// Check each node
-						for (var i = 0; i < mutation.addedNodes.length; i++) {
-							var node = mutation.addedNodes[i];
-							// Check if the node is an element
-							if (node.nodeType === Node.ELEMENT_NODE) {
-								// If the node or its descendants has the 'modal-body' class
-								if (node.classList.contains('modal-body') || node.querySelector('.modal-body')) {
-									// Find the password input within the node
-									var pw = node.querySelector('#password');
-									if (pw) {
-										// Focus the password input and set its value
-										pw.focus();
-										pw.value = 'ok';
-										pw.dispatchEvent(new Event('change'));
-									}
+		// Create a new observer
+		var observer = new MutationObserver(function (mutations) {
+			// For each mutation
+			mutations.forEach(function (mutation) {
+				// If the addedNodes property has one or more nodes
+				if (mutation.addedNodes.length) {
+					// Check each node
+					for (var i = 0; i < mutation.addedNodes.length; i++) {
+						var node = mutation.addedNodes[i];
+						// Check if the node is an element
+						if (node.nodeType === Node.ELEMENT_NODE) {
+							// If the node or its descendants has the 'modal-body' class
+							if (node.classList.contains('modal-body') || node.querySelector('.modal-body')) {
+								// Find the password input within the node
+								var pw = node.querySelector('#password');
+								if (pw) {
+									// Focus the password input and set its value
+									pw.focus();
+									pw.value = 'ok';
+									pw.dispatchEvent(new Event('change'));
 								}
-								// If the node or its descendants has the 'modal-footer' class
-								if (node.classList.contains('modal-footer') || node.querySelector('.modal-footer')) {
-									// Find the approve button within the node
-									var approveButton = node.querySelector('.btn.btn-primary.ng-binding');
-									if (approveButton) {
-										// Click the approve button
-										approveButton.click();
-										// Stop observing
-										observer.disconnect();
-										return;
-									}
+							}
+							// If the node or its descendants has the 'modal-footer' class
+							if (node.classList.contains('modal-footer') || node.querySelector('.modal-footer')) {
+								// Find the approve button within the node
+								var approveButton = node.querySelector('.btn.btn-primary.ng-binding');
+								if (approveButton) {
+									// Click the approve button
+									approveButton.click();
+									// Stop observing
+									observer.disconnect();
+									return;
 								}
 							}
 						}
 					}
-				});
+				}
 			});
+		});
 
-			// Start observing
-			observer.observe(document.body, {
-				childList: true,
-				subtree: true
-			});
-		}
+		// Start observing
+		observer.observe(document.body, {
+			childList: true,
+			subtree: true
+		});
+	}
 
 	init()
 </script>
-[/if#onlinereg]
 
 <!-- END form.tesd_ecollect_customizations.content.footer.txt -->
