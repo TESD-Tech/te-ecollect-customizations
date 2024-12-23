@@ -9,21 +9,13 @@ importers:
   .:
     devDependencies:
       '@tesd-tech/ps-package':
-        specifier: ^24.3.0
-        version: 24.3.0
+        specifier: ^24.11.9
+        version: 24.11.9
       npm-check-updates:
         specifier: ^16.14.20
         version: 16.14.20
 
 packages:
-
-  '@babel/runtime-corejs3@7.22.15':
-    resolution: {integrity: sha512-SAj8oKi8UogVi6eXQXKNPu8qZ78Yzy7zawrlTr0M+IuW/g8Qe9gVDhGcF9h1S69OyACpYoLxEzpjs1M15sI5wQ==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/runtime@7.22.15':
-    resolution: {integrity: sha512-T0O+aa+4w0u06iNmapipJXMV4HoUir03hpx3/YqXXhu9xim3w+dVphjFWl1OH8NbZHw5Lbm9k45drDkgq2VNNA==}
-    engines: {node: '>=6.9.0'}
 
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
@@ -110,8 +102,8 @@ packages:
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
     engines: {node: '>=14.16'}
 
-  '@tesd-tech/ps-package@24.3.0':
-    resolution: {integrity: sha512-9bJfjOGBcGigLTJnKuao/Ag8ePsOTxMI5tw5Fmq5zfVh9fkLo4c1r+hKPneDeb4cAYUK67NWhZ0lOAbT6yRHOQ==}
+  '@tesd-tech/ps-package@24.11.9':
+    resolution: {integrity: sha512-YuMmOOuNV2U71N+vXBFHVvbbU/EbATd/dzy4pLB6+eOgSxhFKCka+v06KNIYDrjI1NQbODWnh8Far3WoBIjkhA==}
     hasBin: true
 
   '@tootallnate/once@2.0.0':
@@ -244,8 +236,9 @@ packages:
     resolution: {integrity: sha512-3SD4rrMu1msNGEtNSt8Od6enwdo//U9s4ykmXfA2TD58kcLkCobtCDiby7kNyj7a/Q7lz/mAesAFI54rTdnvBA==}
     engines: {node: '>=14.16'}
 
-  calver@22.9.1:
-    resolution: {integrity: sha512-YKu5CoQtB/oqvmbCaX3UjKsZwM4zV3W5AJ8/1UTYmVtIS5r6kBA4fJxXLFnW3PsTpQYuYrtkC7kqIlL94eQKWQ==}
+  calver@24.1.0:
+    resolution: {integrity: sha512-ohts3WtGGbQ2a9FBmpmh6vSdd9t414i1NPOmz2wx3f17Q+KWNO9WEWQ5YwAtWNIJXVsVOlbRqbsOlLutxCq8cA==}
+    hasBin: true
 
   camelcase@7.0.1:
     resolution: {integrity: sha512-xlx1yCK2Oc1APsPXDL2LdlNP6+uu8OCDdhOBSVT279M/S+y75O30C2VuD8T2ogdePBBl7PfPF4504tnLgX3zfw==}
@@ -290,6 +283,10 @@ packages:
     resolution: {integrity: sha512-y4Mg2tXshplEbSGzx7amzPwKKOCGuoSRP/CjEdwwk0FOGlUbq6lKuoyDZTNZkmxHdJtp54hdfY/JUrdL7Xfdug==}
     engines: {node: '>=14'}
 
+  commander@12.1.0:
+    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
+    engines: {node: '>=18'}
+
   compress-commons@6.0.2:
     resolution: {integrity: sha512-6FqVXeETqWPoGcfzrXb37E50NP0LXT8kAMu5ooZayhWWdgEY4lBEEcbQNXtkuKQsGduxiIcI4gOTsxTmuq/bSg==}
     engines: {node: '>= 14'}
@@ -306,9 +303,6 @@ packages:
 
   console-control-strings@1.1.0:
     resolution: {integrity: sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==}
-
-  core-js-pure@3.32.2:
-    resolution: {integrity: sha512-Y2rxThOuNywTjnX/PgA5vWM6CZ9QB9sz9oGeCixV8MqXZO70z/5SHzf9EeBrEBK0PN36DnEBBu9O/aGWzKuMZQ==}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -992,9 +986,6 @@ packages:
   readdir-glob@1.1.3:
     resolution: {integrity: sha512-v05I2k7xN8zXvPD9N+z/uhXPaj0sUFCe2rcWZIpBsqxfP7xXFQ0tipAd/wjj1YxWyWtUS5IDJpOG82JKt2EAVA==}
 
-  regenerator-runtime@0.14.0:
-    resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
-
   registry-auth-token@5.0.2:
     resolution: {integrity: sha512-o/3ikDxtXaA59BmZuZrJZDJv8NMDGSj+6j6XaeBmHw8eY1i1qd9+6H+LjVvQXx3HN6aRCGa1cUdJ9RaJZUugnQ==}
     engines: {node: '>=14'}
@@ -1281,15 +1272,6 @@ packages:
 
 snapshots:
 
-  '@babel/runtime-corejs3@7.22.15':
-    dependencies:
-      core-js-pure: 3.32.2
-      regenerator-runtime: 0.14.0
-
-  '@babel/runtime@7.22.15':
-    dependencies:
-      regenerator-runtime: 0.14.0
-
   '@colors/colors@1.5.0':
     optional: true
 
@@ -1394,10 +1376,10 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tesd-tech/ps-package@24.3.0':
+  '@tesd-tech/ps-package@24.11.9':
     dependencies:
       archiver: 7.0.1
-      calver: 22.9.1
+      calver: 24.1.0
       fs-extra: 11.2.0
       minimist: 1.2.8
       xml2js: 0.6.2
@@ -1553,10 +1535,9 @@ snapshots:
       normalize-url: 8.0.0
       responselike: 3.0.0
 
-  calver@22.9.1:
+  calver@24.1.0:
     dependencies:
-      '@babel/runtime': 7.22.15
-      '@babel/runtime-corejs3': 7.22.15
+      commander: 12.1.0
 
   camelcase@7.0.1: {}
 
@@ -1586,6 +1567,8 @@ snapshots:
 
   commander@10.0.1: {}
 
+  commander@12.1.0: {}
+
   compress-commons@6.0.2:
     dependencies:
       crc-32: 1.2.2
@@ -1610,8 +1593,6 @@ snapshots:
       xdg-basedir: 5.1.0
 
   console-control-strings@1.1.0: {}
-
-  core-js-pure@3.32.2: {}
 
   core-util-is@1.0.3: {}
 
@@ -2340,8 +2321,6 @@ snapshots:
   readdir-glob@1.1.3:
     dependencies:
       minimatch: 5.1.6
-
-  regenerator-runtime@0.14.0: {}
 
   registry-auth-token@5.0.2:
     dependencies:
