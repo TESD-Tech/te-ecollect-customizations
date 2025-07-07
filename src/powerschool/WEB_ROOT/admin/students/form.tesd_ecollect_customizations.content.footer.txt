@@ -171,4 +171,193 @@
 	init()
 </script>
 
+<script>
+	// This was created using Vance M. Allen's code as a base, and then refactored to work with the Ecollect form.html page.\
+// Vance's code is copyrighted by Vance M. Allen, so I am not able to share it.
+
+// ==UserScript==
+// @name           PowerSchool Document Preview (Final - JSON)
+// @match          *://your-powerschool-server.com/admin/students/form.html*  // CHANGE THIS
+// @grant          none
+// ==UserScript==
+
+(function() {
+    'use strict';
+
+    // CSS (same as before)
+    let style = document.createElement('style');
+    style.textContent = `
+        #vmaPreviewAttachment {
+            height: 80vh;
+            width: 90vw;
+        }
+
+        #vmaPreviewAttachment :first-child {
+            max-width: 100%;
+        }
+
+        #vmaPreviewAttachment iframe {
+            height: 100%;
+            width: 100%;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Function to add the preview button and set up the click handler
+    function addPreviewFunctionality() {
+        // Insert Preview Button
+        $j('a.filenamepadding').before(`<button
+            class="vmaPreviewDoc button"
+            type="button"
+            title="Preview Document"
+            >
+            <em class="ui-icon ui-icon-mail-open-1-s"></em>
+        </button>`);
+
+        // Click Handler
+        $j('.uploadwidth').on('click', '.vmaPreviewDoc', function() {
+            let $fileLink = $j(this).next('a.filenamepadding');
+            let scope = angular.element($fileLink).scope();
+            //let elementResponse = scope.element.response; // Not used, can remove.
+            let fileName = $fileLink.text();
+
+            // 1. Get entityId from URL
+            let frn = window.location.search.match(/frn=(\d+)/)[1];
+            let entityId = frn.slice(3);
+
+            // 2. Fetch Document List (First XHR Request - JSON Response)
+            let listUrl = `/ws/k12drive/document?entityid=${entityId}&entityname=STCM&q=status==active`;
+
+            let listXhr = new XMLHttpRequest();
+            listXhr.open('GET', listUrl);
+            listXhr.setRequestHeader("Accept", "application/json, text/plain, */*");
+
+            listXhr.addEventListener('readystatechange', function() {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        // Parse the JSON response
+                        let docList = null;
+                        try {
+                            docList = JSON.parse(this.responseText).documents.documentList;
+                        } catch (error) {
+                            console.error("Error parsing JSON:", error);
+                            alert('An error occurred while fetching document data.');
+                            return;
+                        }
+
+                        // 3. Find the Correct Document (JSON Traversal)
+                        let targetDoc = null;
+
+                        if (Array.isArray(docList)) {
+                            for (let doc of docList) {
+                                if (doc.name.trim() === fileName.trim()) {
+                                    targetDoc = doc.id;
+                                    break;
+                                }
+                            }
+                        } else if (docList && docList.name && docList.name.trim() === fileName.trim()) {
+                            targetDoc = docList.id;
+                        }
+
+                        if (!targetDoc) {
+                            alert('Could not find document metadata.');
+                            return;
+                        }
+
+                        // 4. Fetch Document Content (Second XHR Request)
+                        let contentUrl = `/ws/k12drive/document/content/${targetDoc}`;
+                        psAlert({
+                            message: `<div id="vmaPreviewAttachment">
+                                <div class="progress" data-pss-wait-spinner="">
+                                    <div></div>
+                                </div>
+                            </div>`,
+                            title: fileName
+                        });
+
+                        let contentXhr = new XMLHttpRequest();
+                        contentXhr.open('GET', contentUrl);
+                        contentXhr.overrideMimeType('text/plain; charset=x-user-defined');
+                        contentXhr.addEventListener('readystatechange', function() {
+                            if (this.readyState === 4 && this.status === 200) {
+                                let $a = $j('#vmaPreviewAttachment');
+                                let binary = '';
+                                let contentType = this.getResponseHeader('content-type');
+                                let response = this.responseText;
+                                let tag;
+
+                                for (let i = 0; i < response.length; i++) {
+                                    binary += String.fromCharCode(response.charCodeAt(i) & 0xff);
+                                }
+                                let encoded = btoa(binary);
+
+                                // Determine how we need to render the content.
+                                if (contentType === 'application/pdf') { tag = 'iframe'; }
+                                if (/^image/.test(contentType)) { tag = 'img'; }
+                                if (/^text/.test(contentType)) { tag = 'iframe'; }
+
+                                // If unable to determine tag, error out.
+                                if (!tag) {
+                                    $a.html(`<h3>Sorry</h3><p>
+                                        We were unable to preview this attachment.
+                                    </p>`);
+                                    console.error(`Unhandled attachment content type "${contentType}".`);
+                                    return;
+                                }
+
+                                // Load the attachment into the preview window.
+                                $a.html(
+                                    `<${tag} src="data:${contentType};base64,${encoded}">` +
+                                    (tag === 'img' ? '' : `</${tag}>`)
+                                );
+                            }
+                        });
+                        contentXhr.send();
+                    } else if (this.status === 404) {
+                        // Handle the 404 response
+                        alert("No documents found for this student.");
+                        return; // Stop execution
+                    } else {
+                        //Handle other errors.
+                        console.error("Error fetching document list:", this.status, this.statusText);
+                        alert('An error occurred while fetching the document list.');
+                        return;
+                    }
+                }
+            });
+            listXhr.send();
+        });
+    }
+
+
+    // Function to wait for an element to be present
+    function waitForElement(selector, callback) {
+        let el = document.querySelector(selector);
+        if (el) {
+            callback(el);
+        } else {
+            let observer = new MutationObserver(mutations => {
+                el = document.querySelector(selector);
+                if (el) {
+                    callback(el);
+                    observer.disconnect();
+                }
+            });
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    }
+
+    // Wait for the form container to be loaded before adding the preview functionality
+    waitForElement('#formcontainer', function(formContainer) {
+        // Now that the form container is loaded, add the preview functionality
+        addPreviewFunctionality();
+    });
+
+})();
+
+</script>
+
 <!-- END form.tesd_ecollect_customizations.content.footer.txt -->
