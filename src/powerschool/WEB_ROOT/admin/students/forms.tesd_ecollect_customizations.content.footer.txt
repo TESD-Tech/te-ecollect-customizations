@@ -50,7 +50,7 @@
         container.className = 'online-reg-toggle-container';
         container.innerHTML = `
           <input type="checkbox" id="ONLINE_REG_PIPELINE">
-          <label for="ONLINE_REG_PIPELINE">Show Online Reg Forms</label>
+          <label for="ONLINE_REG_PIPELINE">Show Online Reg Forms on PS Admin and PS Guardian</label>
         `;
         
         const cb = container.querySelector('input');
