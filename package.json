@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/TESD-Tech/te-ecollect-customizations#readme",
   "devDependencies": {
-    "@tesd-tech/ps-package": "^24.11.9",
-    "npm-check-updates": "^18.3.1"
+    "@tesd-tech/ps-package": "^25.10.5",
+    "npm-check-updates": "^19.3.1"
   }
 }

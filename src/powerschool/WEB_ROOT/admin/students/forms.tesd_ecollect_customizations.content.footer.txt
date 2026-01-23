@@ -1,0 +1,4 @@
+<div>
+  <label for="ONLINE_REG_PIPELINE">Show Online Registration Forms. If enabled, online reg forms will be visible on both PS Admin and PS Guardian for this student.</label>
+  <input type="checkbox" name="[Students.U_Students_Extension]ONLINE_REG_PIPELINE" value="1" id="ONLINE_REG_PIPELINE">
+</div>
