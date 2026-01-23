@@ -1,4 +1,103 @@
-<div>
-  <label for="ONLINE_REG_PIPELINE">Show Online Registration Forms. If enabled, online reg forms will be visible on both PS Admin and PS Guardian for this student.</label>
-  <input type="checkbox" name="[Students.U_Students_Extension]ONLINE_REG_PIPELINE" value="1" id="ONLINE_REG_PIPELINE">
-</div>
+<!-- forms.tesd_ecollect_customizations.content.footer.txt -->
+<style>
+  .online-reg-toggle-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    font-size: 13px;
+  }
+
+  .online-reg-toggle-container:hover {
+    background-color: #e8e8e8;
+  }
+
+  .online-reg-toggle-container label {
+    margin: 0;
+    cursor: pointer;
+    user-select: none;
+    font-weight: normal;
+    color: #333;
+  }
+
+  .online-reg-toggle-container input[type="checkbox"] {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+  }
+</style>
+
+<script>
+(function() {
+  'use strict';
+
+  // Use direct PS tags for student context and initial value
+  const studentDcid = '~(*evaluate mid(~(studentfrn),4,99999))';
+  const initialVal = '~([Students.U_Students_Extension]ONLINE_REG_PIPELINE)';
+  const updateField = 'ONLINE_REG_PIPELINE';
+
+  const observer = new MutationObserver((mutations, obs) => {
+    const anchor = document.querySelector('pss-add-favorite a[id="btnAddRemoveFavorite"]');
+    if (anchor && !document.querySelector('.online-reg-toggle-container')) {
+      const parent = anchor.closest('pss-add-favorite');
+      if (parent && parent.parentNode) {
+        const container = document.createElement('div');
+        container.className = 'online-reg-toggle-container';
+        container.innerHTML = `
+          <input type="checkbox" id="ONLINE_REG_PIPELINE">
+          <label for="ONLINE_REG_PIPELINE">Show Online Reg Forms</label>
+        `;
+        
+        const cb = container.querySelector('input');
+        // PS often returns '1' or '0' string, or empty if null
+        cb.checked = (initialVal == '1');
+
+        cb.addEventListener('change', async (e) => {
+          const val = e.target.checked ? '1' : '0';
+          const endpoint = `/ws/schema/table/U_DEF_EXT_STUDENTS/${studentDcid}`;
+          const payload = {
+              name: 'STUDENTS',
+              tables: {
+                  U_DEF_EXT_STUDENTS: {
+                      [updateField]: val
+                  }
+              }
+          };
+
+          try {
+            const response = await fetch(endpoint, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({ message: response.statusText }));
+                throw new Error(errorData.message || `HTTP ${response.status}`);
+            }
+            
+            const result = await response.json();
+            console.log('Online Reg Toggle saved via Students table:', result);
+          } catch (error) {
+             console.error('Error saving Online Reg Toggle:', error);
+             alert('Error saving change: ' + error.message);
+             // Revert checkbox
+             e.target.checked = !e.target.checked;
+          }
+        });
+
+        parent.parentNode.insertBefore(container, parent.nextSibling);
+        obs.disconnect();
+      }
+    }
+  });
+
+  observer.observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+<!-- forms.tesd_ecollect_customizations.content.footer.txt -->

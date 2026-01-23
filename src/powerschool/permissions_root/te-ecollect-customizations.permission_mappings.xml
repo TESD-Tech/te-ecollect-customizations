@@ -1,0 +1,7 @@
+<permission_mappings>
+  <permission name='/admin/students/forms.html'>
+    <implies allow="get">/ws/schema/table/U_DEF_EXT_STUDENTS</implies>
+    <implies allow="post">/ws/schema/table/U_DEF_EXT_STUDENTS</implies>
+    <implies allow="put">/ws/schema/table/U_DEF_EXT_STUDENTS/#</implies>
+  </permission>
+</permission_mappings>
